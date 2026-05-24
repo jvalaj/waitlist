@@ -69,11 +69,16 @@ app.post('/api/waitlist', (req, res) => {
     }
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log('\n=============================================');
-    console.log(`🚀 Ticker Waitlist Server is running!`);
-    console.log(`👉 Access website at: http://localhost:${PORT}`);
-    console.log(`📁 CSV database path: ${CSV_FILE_PATH}`);
-    console.log('=============================================\n');
-});
+// Start the server (local development)
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log('\n=============================================');
+        console.log(`🚀 Ticker Waitlist Server is running!`);
+        console.log(`👉 Access website at: http://localhost:${PORT}`);
+        console.log(`📁 CSV database path: ${CSV_FILE_PATH}`);
+        console.log('=============================================\n');
+    });
+}
+
+// Export the Express API for Vercel
+module.exports = app;
