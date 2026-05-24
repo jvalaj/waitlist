@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticker - Reclaim your time without losing your connection.</title>
+    <meta name="description" content="Ticker is a mindful screen time companion for iOS. No blocks. No locks. Just a mirror. Join the waitlist.">
+    <link rel="icon" type="image/png" href="public/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- GSAP for Scroll Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <!-- ====== FLOATING LIVE DYNAMIC ISLAND (Always Visible) ====== -->
+    <div class="floating-island-container" id="floating-island">
+        <div class="floating-island">
+            <div class="island-inner">
+                <img src="public/images/logo.png" alt="Ticker" class="island-app-icon">
+                <div class="island-divider"></div>
+                <span class="island-timer-value" id="live-timer">0:00</span>
+            </div>
+            <div class="island-glow" id="island-glow"></div>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- ====== CHAPTER 1: THE WELCOME ====== -->
+        <section class="chapter chapter-welcome" id="chapter-welcome">
+            <div class="chapter-inner">
+                <!-- <div class="welcome-eyebrow">welcome to</div> -->
+                <h1 class="welcome-brand">
+                    <img src="public/images/logo.png" alt="Ticker" class="welcome-brand-img" style="border-radius: 24px;">
+                </h1>
+                <p class="welcome-tagline">Put a <span class="anim-underline u-clock">clock</span> <span id="inline-live-timer" style="font-variant-numeric: tabular-nums; display: inline-flex; align-items: center; justify-content: center; background: rgba(52, 211, 153, 0.15); color: var(--green); border-radius: 8px; padding: 2px 8px; font-size: 20px; font-weight: 700; margin: 0 4px; vertical-align: middle;">0:00</span> on your <span class="anim-underline u-scroll">scroll</span><svg style="display: inline-block; width: 24px; height: 24px; margin-left: 8px; vertical-align: middle; color: var(--blue);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>.</p>
+                    <p class="welcome-tagline">Put a <span class="anim-underline u-clock">clock</span> <span id="inline-live-timer" style="font-variant-numeric: tabular-nums; display: inline-flex; align-items: center; justify-content: center; background: rgba(52, 211, 153, 0.15); color: var(--green); border-radius: 8px; padding: 2px 8px; font-size: 20px; font-weight: 700; margin: 0 4px; vertical-align: middle;">0:00</span> on your <span class="anim-underline u-scroll">scroll</span><img src="public/images/fingerscroll.png" alt="finger scroll" style="display: inline-block; width: 24px; height: 24px; margin-left: 8px; vertical-align: middle;"/>.</p>
+                <div class="scroll-hint" style="color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                    <span>Scroll to understand why</span>
+                    <div class="scroll-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CHAPTER 2: BLOCKERS DON'T WORK ====== -->
+        
+        <!-- ====== SECTION 2: THE TWIST ====== -->
+        <section class="chapter chapter-blockers" id="chapter-blockers">
+            <div class="chapter-inner">
+                <div class="chapter-num">01</div>
+                <h2 class="chapter-title">App blockers and screen time limits don't work. And you know it.</h2>
+                
+                <ul style="list-style: none; padding: 0; margin-bottom: 32px; font-size: 17px; line-height: 1.6; color: var(--sub);">
+                    <li style="margin-bottom: 24px; position: relative; padding-left: 24px;">
+                        <span style="position: absolute; left: 0; top: 0;">&bull;</span>
+                        <strong style="color: var(--ink);">The Override Loop:</strong> When a limit popup appears, you don't put the phone down. You just tap 'Ignore'. <strong>You haven't trained your mind, only your thumb.</strong>
+                        <div style="display: flex; align-items: center; gap: 16px; margin-top: 24px;">
+                            <div style="background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.04); display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; flex-shrink: 0;">
+                                <img src="public/images/brain.png" alt="Brain" style="width: 100%; height: 100%; object-fit: contain; opacity: 0.8;">
+                            </div>
+                            <span style="font-weight: 800; font-size: 24px; color: var(--sub); opacity: 0.5;">></span>
+                            <div style="background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.04); display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; flex-shrink: 0;">
+                                <img src="public/images/finger.jpg" alt="Finger" style="width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; opacity: 0.8;">
+                            </div>
+                        </div>
+                    </li>
+                    <li style="position: relative; padding-left: 24px;">
+                        <span style="position: absolute; left: 0; top: 0;">&bull;</span>
+                        <strong style="color: var(--ink);">The Rebound Effect:</strong> Forcing yourself to quit triggers <em>reactance</em>. The exact second a block lifts, your brain goes into overdrive. You doom-scroll twice as fast to make up for lost time.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 3: THE SCIENCE ====== -->
+        <section class="chapter chapter-science dark-mode" id="chapter-science">
+            <div class="chapter-inner">
+                <div class="chapter-num">02</div>
+                <h2 class="chapter-title">The psychological shift: Active vs. Passive Use</h2>
+                <p class="chapter-body highlight-text">Yale psychology research reveals a vital truth: <strong>Being social online isn't the problem. The problem is autopilot.</strong></p>
+                
+                <div class="psychology-comparison">
+                    <div class="psych-card active-use">
+                        <div class="psych-icon">💬</div>
+                        <div class="psych-content">
+                            <h4>ACTIVE USE (Healthy Connection)</h4>
+                            <p>Messaging friends &bull; Organizing meetups &bull; Sharing photos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 24px 0; color: var(--sub); font-size: 14px;" >
+                    The Autopilot Transition<br>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top: 8px;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </div>
+
+                <div class="psychology-comparison" style="margin-bottom: 32px;">
+                    <div class="psych-card passive-use">
+                        <div class="psych-icon">🧟</div>
+                        <div class="psych-content">
+                            <h4>PASSIVE CONSUMPTION</h4>
+                            <p>Endlessly scrolling algorithm feeds. The primary driver of declining wellbeing and screen-time guilt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 4: WHAT WE INTRODUCE ====== -->
+        <section class="chapter chapter-how" id="chapter-how">
+            <div class="chapter-inner">
+                <div class="chapter-num">03</div>
+                <h2 class="chapter-title">The solution isn't force. It's self-realization.</h2>
+                <p class="chapter-body highlight-text">You don't need a parent locking your apps. You need a mirror. Ticker runs a quiet Live Activity in your Dynamic Island to show your elapsed time. No popups. No blocking. Just absolute awareness, letting you make your own choices.</p>
+                
+                <div class="how-demo">
+
+
+                    <div class="how-col">
+                        <div class="demo-box">
+                            <div class="comp-phone-screen ticker-screen">
+                                <div class="comp-island">
+                                    <span class="comp-island-dot"></span>
+                                    <span class="comp-island-time">4:32</span>
+                                </div>
+                                <div class="ticker-content-lines">
+                                    <div class="tcl"></div>
+                                    <div class="tcl short"></div>
+                                    <div class="tcl med"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="comp-label">Ticker</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 5: THE CTA ====== -->
+<section class="chapter chapter-cta" id="chapter-cta">
+            <div class="chapter-inner">
+                <div class="cta-lockup">
+                    <img src="public/images/logo.png" alt="Ticker" class="cta-icon">
+                    <h2 class="cta-headline">You've been on this page for <br class="mobile-break"><span class="cta-time-highlight" id="cta-time">0 seconds</span>.</h2>
+                    <p class="cta-sub">Imagine having that awareness every time you open Instagram, TikTok, or Twitter. No locks. No guilt. Just a quiet mirror.</p>
+                    <p class="cta-sub-small">We're rolling out early access in weekly cohorts. Enter your email and we'll save your spot.</p>
+                </div>
+
+                <div class="cta-form-wrap">
+                    <form class="cta-form" id="waitlist-form">
+                        <div class="cta-input-row">
+                            <input type="email" id="email-input" placeholder="your@email.com" required autocomplete="email">
+                            <button type="submit" class="cta-submit-btn" id="submit-btn">Join the waitlist</button>
+                        </div>
+                        <p class="cta-helper">iOS 17+ required · No spam, ever</p>
+                    </form>
+                    <div class="cta-success hidden" id="success-card">
+                        <div class="success-check">✓</div>
+                        <h3>You're on the list.</h3>
+                        <p>We've saved your spot. You'll hear from us soon.</p>
+                        <div class="success-queue">
+                            <span class="sq-label">Your spot</span>
+                            <span class="sq-num" id="queue-num">#1,432</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <img src="public/images/logo.png" alt="" class="footer-logo">
+                <span class="footer-brand">ticker</span>
+            </div>
+            <p class="footer-copy">© 2026 Ticker. Built for a present mind.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

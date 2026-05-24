@@ -1,0 +1,14 @@
+{
+  "name": "ticker-waitlist",
+  "version": "1.0.0",
+  "description": "Ticker App Waitlist landing page and local submission capture.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "gsap": "^3.15.0"
+  },
+  "private": true
+}
