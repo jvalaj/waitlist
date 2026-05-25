@@ -76,8 +76,8 @@ export function HeroSection() {
           <Image
             src="/images/fingerscroll.png"
             alt="finger scroll"
-            width={24}
-            height={24}
+            width={40}
+            height={40}
             className="inline-block ml-2 align-middle"
           />
           .
