@@ -44,7 +44,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['"Google Sans"', 'system-ui', 'sans-serif'],
         brand: ['var(--font-kyiv)', 'Georgia', 'serif'],
       },
       animation: {

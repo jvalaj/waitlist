@@ -39,7 +39,7 @@
     --input: 240 6% 90%;
     --ring: 240 6% 10%;
     --radius: 0.75rem;
-    --font-inter: 'Inter', system-ui, sans-serif;
+    --font-sans: 'Google Sans', 'Inter', system-ui, sans-serif;
     --font-kyiv: 'KyivTypeSans', Georgia, serif;
   }
 }
@@ -54,7 +54,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-inter);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
