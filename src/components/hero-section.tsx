@@ -78,7 +78,7 @@ export function HeroSection() {
             alt="finger scroll"
             width={40}
             height={40}
-            className="inline-block ml-2 align-middle"
+            className="inline-block -ml-1 -translate-y-1 align-middle"
           />
           .
         </p>
