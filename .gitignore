@@ -19,6 +19,8 @@ pids/
 # Build output
 dist/
 build/
+.next/
+out/
 .out/
 .cache/
 coverage/
