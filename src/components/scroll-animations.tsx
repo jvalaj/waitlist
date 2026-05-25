@@ -91,14 +91,11 @@ export function ScrollAnimations() {
             const target = getTargetTop()
             islandEl.style.top = `${16 + (target - 16) * pct}px`
           },
-          // Scrolled past section bottom → return island to top
-          onLeave: () => resetTop(),
           // Scrolled back above section top → return island to top
           onLeaveBack: () => resetTop(0.35),
-          // Re-entering from below: snap island to target so onUpdate has a clean start
+          // Re-entering from below: island is already at center from onUpdate; just kill any snap tween
           onEnterBack() {
             if (snapTween) { snapTween.kill(); snapTween = null }
-            islandEl.style.top = `${getTargetTop()}px`
           },
         })
       }
