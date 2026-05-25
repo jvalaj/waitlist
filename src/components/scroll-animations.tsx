@@ -60,6 +60,48 @@ export function ScrollAnimations() {
           })
         }
       })
+
+      // ── Island scroll-into-box animation ──
+      const howSection = document.getElementById('how-section')
+      const islandAnchor = document.getElementById('island-anchor')
+      const islandEl = document.querySelector('.floating-island-wrap') as HTMLElement | null
+
+      if (howSection && islandAnchor && islandEl) {
+        let snapTween: gsap.core.Tween | null = null
+
+        const getTargetTop = () => {
+          // anchor is 1×1px at the box center; when sticky, getBCR is viewport-accurate
+          const r = islandAnchor.getBoundingClientRect()
+          return r.top - islandEl.offsetHeight / 2
+        }
+
+        const resetTop = (duration = 0.45) => {
+          if (snapTween) snapTween.kill()
+          snapTween = gsap.to(islandEl, { top: 16, duration, ease: 'power2.inOut', overwrite: true })
+        }
+
+        ScrollTrigger.create({
+          trigger: howSection,
+          start: 'top top',
+          end: 'bottom bottom',
+          onUpdate(self) {
+            if (snapTween) { snapTween.kill(); snapTween = null }
+            // Island travels to center over first 50% of section scroll, then holds
+            const pct = Math.min(self.progress * 2, 1)
+            const target = getTargetTop()
+            islandEl.style.top = `${16 + (target - 16) * pct}px`
+          },
+          // Scrolled past section bottom → return island to top
+          onLeave: () => resetTop(),
+          // Scrolled back above section top → return island to top
+          onLeaveBack: () => resetTop(0.35),
+          // Re-entering from below: snap island to target so onUpdate has a clean start
+          onEnterBack() {
+            if (snapTween) { snapTween.kill(); snapTween = null }
+            islandEl.style.top = `${getTargetTop()}px`
+          },
+        })
+      }
     }
 
     initGSAP()
