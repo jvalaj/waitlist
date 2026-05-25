@@ -72,19 +72,6 @@ export function ScienceSection() {
             </div>
           </div>
 
-          {/* Bottom full-width insight card */}
-          <div className="sm:col-span-2 bg-[#F7F7F8] border border-border rounded-3xl p-7 fade-up flex items-center gap-6">
-            <div className="w-12 h-12 rounded-2xl bg-white border border-border flex items-center justify-center flex-shrink-0 shadow-sm">
-              <FlaskConical className="w-5 h-5 text-muted-foreground" strokeWidth={1.8} />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground leading-relaxed">
-                Yale research shows active social media use <span className="text-[#34D399] font-black">increases wellbeing</span>,
-                while passive consumption <span className="text-[#EF4444] font-black">decreases it</span> — even with the same amount of time spent online.
-              </p>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>

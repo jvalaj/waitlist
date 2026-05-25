@@ -24,7 +24,7 @@ if (section2Start !== -1 && section3Start !== -1) {
                 <ul style="list-style: none; padding: 0; margin-bottom: 32px; font-size: 17px; line-height: 1.6; color: var(--sub);">
                     <li style="margin-bottom: 24px; position: relative; padding-left: 24px;">
                         <span style="position: absolute; left: 0; top: 0;">&bull;</span>
-                        <strong style="color: var(--ink);">The Override Loop:</strong> When a limit popup appears, you don't put the phone down. You just tap 'Ignore'. <strong>You haven't trained your mind, only your thumb.</strong>
+                        When you tap 'Ignore Limit', you don't train your mind, only your thumb.
                         <div style="display: flex; align-items: center; gap: 20px; margin-top: 20px; font-weight: 800; font-size: 32px; color: var(--ink); opacity: 0.8;">
                             <img src="public/images/brain.png" alt="Brain" style="width: 64px; height: auto; object-fit: contain;">
                             <span>></span>
@@ -33,7 +33,7 @@ if (section2Start !== -1 && section3Start !== -1) {
                     </li>
                     <li style="position: relative; padding-left: 24px;">
                         <span style="position: absolute; left: 0; top: 0;">&bull;</span>
-                        <strong style="color: var(--ink);">The Rebound Effect:</strong> Forcing yourself to quit triggers <em>reactance</em>. The exact second a block lifts, your brain goes into overdrive. You doom-scroll twice as fast to make up for lost time.
+                        Blocking social media apps triggers <em>reactance</em>. The exact second a block lifts, your brain goes into overdrive. You doom-scroll twice as fast to make up for lost time.
                     </li>
                 </ul>
             </div>
