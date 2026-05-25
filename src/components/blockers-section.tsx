@@ -1,4 +1,3 @@
-import { PhoneOff } from 'lucide-react'
 
 export function BlockersSection() {
   return (
@@ -10,77 +9,35 @@ export function BlockersSection() {
           App blockers don&apos;t work. And you know it.
         </h2>
 
-        {/* Bento grid — Rebound first, Override second */}
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
-
-          {/* Card 1 — Rebound Effect (dark, col-span-2) */}
-          <div className="sm:col-span-2 bg-[#111113] text-white rounded-3xl p-7 shadow-sm fade-up flex flex-col justify-between gap-6">
-            <div>
-              <p className="text-xs font-black tracking-widest uppercase text-white/40 mb-2"></p>
-              <p className="text-sm text-white/70 leading-relaxed">
-                Forcing yourself to quit triggers <span className="text-white font-semibold">reactance</span>.
-                The second a block lifts, you doom-scroll twice as fast to make up for lost time.
-              </p>
+        <div className="bg-[#111113] text-white rounded-3xl p-7 shadow-sm fade-up flex flex-col justify-between gap-6">
+          <div>
+            <p className="text-sm text-white/70 leading-relaxed">
+              Forcing yourself to quit triggers <span className="text-white font-semibold">reactance</span>.
+              The second a block lifts, you doom-scroll twice as fast to make up for lost time.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-white/40">Usage after block</span>
+              <span className="text-[#EF4444]">+2×</span>
             </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between text-xs font-semibold">
-                <span className="text-white/40">Usage after block</span>
-                <span className="text-[#EF4444]">+2×</span>
-              </div>
-              {/* Mini bar chart */}
-              <div className="flex items-end gap-1 h-12">
-                {[30, 45, 35, 50, 40, 38, 95].map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 rounded-sm"
-                    style={{
-                      height: `${h}%`,
-                      background: i === 6 ? '#EF4444' : 'rgba(255,255,255,0.15)',
-                    }}
-                  />
-                ))}
-              </div>
-              <div className="flex justify-between text-[10px] text-white/30 font-medium">
-                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span className="text-[#EF4444]">Sun</span>
-              </div>
+            {/* Mini bar chart */}
+            <div className="flex items-end gap-1 h-12">
+              {[30, 45, 35, 50, 40, 38, 95].map((h, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-sm"
+                  style={{
+                    height: `${h}%`,
+                    background: i === 6 ? '#EF4444' : 'rgba(255,255,255,0.15)',
+                  }}
+                />
+              ))}
+            </div>
+            <div className="flex justify-between text-[10px] text-white/30 font-medium">
+              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span className="text-[#EF4444]">Sun</span>
             </div>
           </div>
-
-          {/* Card 2 — Override Loop with iOS Screen Time mockup (col-span-3) */}
-          <div className="sm:col-span-3 bg-white rounded-3xl p-7 shadow-sm border border-border fade-up flex flex-col gap-5">
-            <div>
-              <p className="text-xs font-black tracking-widest uppercase text-muted-foreground mb-1"></p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                The limit popup appears. You tap <strong className="text-foreground">&lsquo;Ignore Limit&rsquo;</strong>.
-                You haven&apos;t trained your mind — only your thumb.
-              </p>
-            </div>
-
-            {/* Simulated iOS Screen Time alert */}
-            <div className="bg-[#F2F2F7] rounded-2xl overflow-hidden shadow-inner">
-              <div className="px-6 pt-6 pb-4 flex flex-col items-center gap-1 text-center">
-                <div className="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center mb-1 shadow-sm">
-                  <PhoneOff className="w-5 h-5 text-[#3C3C43]" strokeWidth={1.8} />
-                </div>
-                <p className="font-black text-[15px]">Time Limit</p>
-                <p className="text-xs text-[#6B7280] leading-snug max-w-[200px]">
-                  You&apos;ve used 1 hour on Social Networking today.
-                </p>
-              </div>
-              <div className="px-4 pb-4 flex flex-col gap-2">
-                <button className="w-full bg-[#007AFF] text-white text-[13px] font-bold rounded-xl py-2.5">
-                  OK
-                </button>
-                <button className="w-full border border-[#007AFF] text-[#007AFF] text-[13px] font-semibold rounded-xl py-2.5 bg-white">
-                  Ignore Limit for Today
-                </button>
-              </div>
-              <div className="h-4 bg-[#E8E8ED] flex items-center justify-center">
-                <div className="w-20 h-1 bg-[#C7C7CC] rounded-full" />
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
