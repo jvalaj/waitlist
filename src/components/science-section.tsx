@@ -1,3 +1,5 @@
+import { MessageCircle, CalendarDays, Camera, Infinity, FlaskConical } from 'lucide-react'
+
 export function ScienceSection() {
   return (
     <section className="px-6 py-24 bg-white border-b border-border">
@@ -17,8 +19,8 @@ export function ScienceSection() {
 
           {/* Active Use — light green */}
           <div className="bg-[#F0FDF9] border border-[#A7F3D0] rounded-3xl p-8 fade-up flex flex-col gap-4">
-            <div className="w-11 h-11 bg-[#34D399]/20 rounded-2xl flex items-center justify-center text-2xl">
-              💬
+            <div className="w-11 h-11 bg-[#34D399]/20 rounded-2xl flex items-center justify-center">
+              <MessageCircle className="w-5 h-5 text-[#059669]" strokeWidth={2} />
             </div>
             <div>
               <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#059669] bg-[#34D399]/15 rounded-full px-3 py-1 mb-3">
@@ -31,9 +33,13 @@ export function ScienceSection() {
             </div>
             <div className="mt-auto flex items-center gap-2 pt-4 border-t border-[#A7F3D0]">
               <div className="flex gap-1">
-                {['💬', '📅', '📸'].map((e, i) => (
-                  <div key={i} className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-base shadow-sm border border-[#A7F3D0]">
-                    {e}
+                {[
+                  <MessageCircle key="msg" className="w-4 h-4 text-[#059669]" strokeWidth={2} />,
+                  <CalendarDays key="cal" className="w-4 h-4 text-[#059669]" strokeWidth={2} />,
+                  <Camera key="cam" className="w-4 h-4 text-[#059669]" strokeWidth={2} />,
+                ].map((icon, i) => (
+                  <div key={i} className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm border border-[#A7F3D0]">
+                    {icon}
                   </div>
                 ))}
               </div>
@@ -43,8 +49,8 @@ export function ScienceSection() {
 
           {/* Passive Consumption — dark */}
           <div className="bg-[#111113] rounded-3xl p-8 text-white fade-up flex flex-col gap-4">
-            <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center text-2xl">
-              🧟
+            <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center">
+              <Infinity className="w-5 h-5 text-white/60" strokeWidth={2} />
             </div>
             <div>
               <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#EF4444] bg-[#EF4444]/10 rounded-full px-3 py-1 mb-3">
@@ -68,7 +74,9 @@ export function ScienceSection() {
 
           {/* Bottom full-width insight card */}
           <div className="sm:col-span-2 bg-[#F7F7F8] border border-border rounded-3xl p-7 fade-up flex items-center gap-6">
-            <div className="text-4xl flex-shrink-0">🔬</div>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-border flex items-center justify-center flex-shrink-0 shadow-sm">
+              <FlaskConical className="w-5 h-5 text-muted-foreground" strokeWidth={1.8} />
+            </div>
             <div>
               <p className="text-sm font-semibold text-foreground leading-relaxed">
                 Yale research shows active social media use <span className="text-[#34D399] font-black">increases wellbeing</span>,
