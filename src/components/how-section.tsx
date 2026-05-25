@@ -11,7 +11,7 @@ export function HowSection() {
           The solution isn&apos;t force. It&apos;s self-realization.
         </h2>
         <p className="text-muted-foreground text-base mb-10 fade-up max-w-lg">
-          No popups. No locks. Just a quiet mirror in your Dynamic Island.
+          No popups. No locks. Just a mirror in your Dynamic Island.
         </p>
 
         {/* Bento grid */}

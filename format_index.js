@@ -86,7 +86,7 @@ const newSections = `
             <div class="chapter-inner">
                 <div class="chapter-num">03</div>
                 <h2 class="chapter-title">A gentle reflection, right in your Dynamic Island.</h2>
-                <p class="chapter-body">Ticker runs a Live Activity that shows your elapsed time directly in the Dynamic Island. No popups. No blocking. Just a quiet number that keeps you honest.</p>
+                <p class="chapter-body">Ticker runs a Live Activity that shows your elapsed time directly in the Dynamic Island. No popups. No blocking. Just a number that keeps you honest.</p>
                 
                 <div class="how-demo">
                     <div class="how-col">

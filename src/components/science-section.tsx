@@ -17,28 +17,28 @@ export function ScienceSection() {
         {/* Two-card bento */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-          {/* Active Use — light green */}
-          <div className="bg-[#F0FDF9] border border-[#A7F3D0] rounded-3xl p-8 fade-up flex flex-col gap-4">
-            <div className="w-11 h-11 bg-[#34D399]/20 rounded-2xl flex items-center justify-center">
-              <MessageCircle className="w-5 h-5 text-[#059669]" strokeWidth={2} />
+          {/* Active Use — light blue */}
+          <div className="bg-[#EFF6FF] border border-[#BFDBFE] rounded-3xl p-8 fade-up flex flex-col gap-4">
+            <div className="w-11 h-11 bg-[#3B82F6]/20 rounded-2xl flex items-center justify-center">
+              <MessageCircle className="w-5 h-5 text-[#2563EB]" strokeWidth={2} />
             </div>
             <div>
-              <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#059669] bg-[#34D399]/15 rounded-full px-3 py-1 mb-3">
+              <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#2563EB] bg-[#3B82F6]/15 rounded-full px-3 py-1 mb-3">
                 ✓ Healthy Connection
               </span>
-              <h3 className="text-xl font-black mb-2">Active Use</h3>
+              <h3 className="text-xl font-black mb-2 text-foreground">Active Use</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Messaging friends · Organizing meetups · Sharing meaningful content. You&apos;re present and intentional.
               </p>
             </div>
-            <div className="mt-auto flex items-center gap-2 pt-4 border-t border-[#A7F3D0]">
+            <div className="mt-auto flex items-center gap-2 pt-4 border-t border-[#BFDBFE]">
               <div className="flex gap-1">
                 {[
-                  <MessageCircle key="msg" className="w-4 h-4 text-[#059669]" strokeWidth={2} />,
-                  <CalendarDays key="cal" className="w-4 h-4 text-[#059669]" strokeWidth={2} />,
-                  <Camera key="cam" className="w-4 h-4 text-[#059669]" strokeWidth={2} />,
+                  <MessageCircle key="msg" className="w-4 h-4 text-[#2563EB]" strokeWidth={2} />,
+                  <CalendarDays key="cal" className="w-4 h-4 text-[#2563EB]" strokeWidth={2} />,
+                  <Camera key="cam" className="w-4 h-4 text-[#2563EB]" strokeWidth={2} />,
                 ].map((icon, i) => (
-                  <div key={i} className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm border border-[#A7F3D0]">
+                  <div key={i} className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm border border-[#BFDBFE]">
                     {icon}
                   </div>
                 ))}
@@ -47,27 +47,27 @@ export function ScienceSection() {
             </div>
           </div>
 
-          {/* Passive Consumption — dark */}
-          <div className="bg-[#111113] rounded-3xl p-8 text-white fade-up flex flex-col gap-4">
-            <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center">
-              <Infinity className="w-5 h-5 text-white/60" strokeWidth={2} />
+          {/* Passive Consumption — light orange */}
+          <div className="bg-[#FFF7ED] border border-[#FED7AA] rounded-3xl p-8 fade-up flex flex-col gap-4">
+            <div className="w-11 h-11 bg-[#F97316]/20 rounded-2xl flex items-center justify-center">
+              <Infinity className="w-5 h-5 text-[#EA580C]" strokeWidth={2} />
             </div>
             <div>
-              <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#EF4444] bg-[#EF4444]/10 rounded-full px-3 py-1 mb-3">
+              <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#EA580C] bg-[#F97316]/15 rounded-full px-3 py-1 mb-3">
                 ↓ Declining Wellbeing
               </span>
-              <h3 className="text-xl font-black mb-2 text-white">Passive Consumption</h3>
-              <p className="text-sm text-white/60 leading-relaxed">
+              <h3 className="text-xl font-black mb-2 text-foreground">Passive Consumption</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 Endlessly scrolling algorithm feeds. No goal. No end. The primary driver of screen-time guilt and anxiety.
               </p>
             </div>
-            <div className="mt-auto pt-4 border-t border-white/10">
+            <div className="mt-auto pt-4 border-t border-[#FED7AA]">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] text-white/40 font-semibold">Autopilot scroll session</span>
-                <span className="text-[11px] text-[#EF4444] font-black">47 min</span>
+                <span className="text-[11px] text-muted-foreground font-semibold">Autopilot scroll session</span>
+                <span className="text-[11px] text-[#EA580C] font-black">47 min</span>
               </div>
-              <div className="w-full bg-white/10 rounded-full h-1.5">
-                <div className="bg-[#EF4444] h-1.5 rounded-full w-[85%]" />
+              <div className="w-full bg-[#FFEDD5] rounded-full h-1.5">
+                <div className="bg-[#EA580C] h-1.5 rounded-full w-[85%]" />
               </div>
             </div>
           </div>

@@ -69,7 +69,7 @@ export function CTASection() {
           </h2>
           <p className="text-base text-muted-foreground leading-relaxed mb-3">
             Imagine having that awareness every time you open Instagram, TikTok, or Twitter. No
-            locks. No guilt. Just a quiet mirror.
+            locks. No guilt. Just a mirror.
           </p>
           <p className="text-sm text-muted-foreground/70">
             We&apos;re rolling out early access in weekly cohorts. Enter your email and we&apos;ll
