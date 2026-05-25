@@ -55,7 +55,7 @@ export function HeroSection() {
 
         <p
           id="hero-tagline"
-          className="text-white font-bold text-2xl sm:text-3xl w-full max-w-lg leading-relaxed mb-16 break-words"
+          className="text-white font-bold text-2xl sm:text-3xl whitespace-nowrap leading-relaxed mb-16"
           style={{ opacity: 0, textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}
         >
           Put a{' '}
@@ -72,17 +72,15 @@ export function HeroSection() {
             0:00
           </span>{' '}
           on your{' '}
-          <span className="whitespace-nowrap">
-            <span className="anim-underline u-scroll">scroll</span>
-            <Image
-              src="/images/fingerscroll.png"
-              alt=""
-              width={40}
-              height={40}
-              className="inline-block -ml-1 -translate-y-1 align-middle"
-            />
-            .
-          </span>
+          <span className="anim-underline u-scroll">scroll</span>
+          <Image
+            src="/images/fingerscroll.png"
+            alt=""
+            width={40}
+            height={40}
+            className="inline-block -ml-1 -translate-y-1 align-middle"
+          />
+          .
         </p>
       </div>
 

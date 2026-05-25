@@ -16,8 +16,8 @@ html = html.replace(
 
 // List items in section 2
 html = html.replace(
-    `<strong style="color: var(--ink);">The Override Loop:</strong> Software barriers are a joke. When a limit popup appears, you don't even look away. Your thumb automatically hits "Ignore for 15 Minutes." <strong>You haven't trained your mind; you've just trained your thumb to dismiss another annoying popup.</strong>`,
-    `<strong style="color: var(--ink);">The Override Loop:</strong> Software barriers on your own device are completely negotiable. When a popup says "You've hit your limit," you don't look away. Your thumb automatically taps "Ignore Limit for 15 Minutes." <strong>You haven't trained your mind; you've just trained your thumb to click a different button.</strong>`
+    `<strong style="color: var(--ink);"></strong> Software barriers are a joke. When a limit popup appears, you don't even look away. Your thumb automatically hits "Ignore for 15 Minutes." <strong>You haven't trained your mind; you've just trained your thumb to dismiss another annoying popup.</strong>`,
+    `<strong style="color: var(--ink);"></strong> Software barriers on your own device are completely negotiable. When a popup says "You've hit your limit," you don't look away. Your thumb automatically taps "Ignore Limit for 15 Minutes." <strong>You haven't trained your mind; you've just trained your thumb to click a different button.</strong>`
 );
 
 html = html.replace(

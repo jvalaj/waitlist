@@ -5,7 +5,7 @@ export function BlockersSection() {
     <section className="px-6 py-24 bg-[#F7F7F8] border-b border-border">
       <div className="max-w-[900px] mx-auto">
         {/* Header */}
-        <p className="text-xs font-black tracking-[0.2em] text-[#0066FF] uppercase mb-3 fade-up">01</p>
+
         <h2 className="text-[2rem] sm:text-[2.4rem] font-black tracking-tight leading-[1.12] mb-10 fade-up max-w-xl">
           App blockers don&apos;t work. And you know it.
         </h2>
@@ -16,7 +16,7 @@ export function BlockersSection() {
           {/* Card 1 — Rebound Effect (dark, col-span-2) */}
           <div className="sm:col-span-2 bg-[#111113] text-white rounded-3xl p-7 shadow-sm fade-up flex flex-col justify-between gap-6">
             <div>
-              <p className="text-xs font-black tracking-widest uppercase text-white/40 mb-2">The Rebound Effect</p>
+              <p className="text-xs font-black tracking-widest uppercase text-white/40 mb-2"></p>
               <p className="text-sm text-white/70 leading-relaxed">
                 Forcing yourself to quit triggers <span className="text-white font-semibold">reactance</span>.
                 The second a block lifts, you doom-scroll twice as fast to make up for lost time.
@@ -49,7 +49,7 @@ export function BlockersSection() {
           {/* Card 2 — Override Loop with iOS Screen Time mockup (col-span-3) */}
           <div className="sm:col-span-3 bg-white rounded-3xl p-7 shadow-sm border border-border fade-up flex flex-col gap-5">
             <div>
-              <p className="text-xs font-black tracking-widest uppercase text-muted-foreground mb-1">The Override Loop</p>
+              <p className="text-xs font-black tracking-widest uppercase text-muted-foreground mb-1"></p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 The limit popup appears. You tap <strong className="text-foreground">&lsquo;Ignore Limit&rsquo;</strong>.
                 You haven&apos;t trained your mind — only your thumb.

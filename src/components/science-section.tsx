@@ -5,7 +5,7 @@ export function ScienceSection() {
     <section className="px-6 py-24 bg-white border-b border-border">
       <div className="max-w-[900px] mx-auto">
         {/* Header */}
-        <p className="text-xs font-black tracking-[0.2em] text-[#0066FF] uppercase mb-3 fade-up">02</p>
+
         <h2 className="text-[2rem] sm:text-[2.4rem] font-black tracking-tight leading-[1.12] mb-3 fade-up max-w-xl">
           Active vs. Passive. That&apos;s the only distinction that matters.
         </h2>

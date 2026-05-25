@@ -6,9 +6,9 @@ export function HowSection() {
     <section className="px-6 py-24 bg-[#F7F7F8] border-b border-border">
       <div className="max-w-[900px] mx-auto">
         {/* Header */}
-        <p className="text-xs font-black tracking-[0.2em] text-[#0066FF] uppercase mb-3 fade-up">03</p>
+
         <h2 className="text-[2rem] sm:text-[2.4rem] font-black tracking-tight leading-[1.12] mb-3 fade-up max-w-xl">
-          The solution isn&apos;t force. It&apos;s self-realization.
+          Enter self-realization.
         </h2>
         <p className="text-muted-foreground text-base mb-10 fade-up max-w-lg">
           No popups. No locks. Just a mirror in your Dynamic Island.
@@ -75,9 +75,6 @@ export function HowSection() {
               </div>
             </div>
 
-            <p className="text-xs text-center text-muted-foreground max-w-[180px] leading-relaxed">
-              Ticker lives quietly in your Dynamic Island — always visible, never intrusive.
-            </p>
           </div>
 
           {/* Right column — two info cards */}
