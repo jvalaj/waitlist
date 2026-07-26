@@ -68,12 +68,10 @@ export function CTASection() {
             .
           </h2>
           <p className="text-base text-muted-foreground leading-relaxed mb-3">
-            Imagine having that awareness every time you open Instagram, TikTok, or Twitter. No
-            locks. No guilt. Just a mirror.
+            Imagine seeing that timer every time you open Instagram or TikTok. No locks, no guilt. Just a clock.
           </p>
           <p className="text-sm text-muted-foreground/70">
-            We&apos;re rolling out early access in weekly cohorts. Enter your email and we&apos;ll
-            save your spot.
+            We let people in weekly. Leave your email and we&apos;ll invite you next.
           </p>
         </div>
 
@@ -95,7 +93,7 @@ export function CTASection() {
                 </Button>
               </div>
               <p className="text-[11px] font-semibold text-muted-foreground mt-3">
-                iOS 17+ required · No spam, ever
+                Needs iOS 17 or newer. No spam.
               </p>
             </form>
           ) : (
@@ -106,7 +104,7 @@ export function CTASection() {
                 </div>
                 <h3 className="text-xl font-black mb-2">You&apos;re on the list.</h3>
                 <p className="text-sm text-muted-foreground mb-6">
-                  We&apos;ve saved your spot. You&apos;ll hear from us soon.
+                  We&apos;ll email you soon.
                 </p>
                 <div className="inline-flex flex-col items-center bg-secondary border border-border rounded-2xl px-8 py-3">
                   <span className="text-[9px] font-black uppercase tracking-[0.12em] text-muted-foreground mb-1">

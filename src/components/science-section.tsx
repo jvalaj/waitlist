@@ -7,11 +7,11 @@ export function ScienceSection() {
         {/* Header */}
 
         <h2 className="text-[2rem] sm:text-[2.4rem] font-black tracking-tight leading-[1.12] mb-3 fade-up max-w-xl">
-          Active vs. Passive. That&apos;s the only distinction that matters.
+          The real problem is scrolling without thinking.
         </h2>
         <p className="text-muted-foreground text-base mb-10 fade-up max-w-lg highlight-text">
-          Yale psychology research reveals:{' '}
-          <strong className="text-foreground">being social online isn&apos;t the problem. Autopilot is.</strong>
+          Research shows that{' '}
+          <strong className="text-foreground">talking to people online isn&apos;t actually bad for you. The bad part is scrolling on autopilot.</strong>
         </p>
 
         {/* Two-card bento */}
@@ -24,11 +24,11 @@ export function ScienceSection() {
             </div>
             <div>
               <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#2563EB] bg-[#3B82F6]/15 rounded-full px-3 py-1 mb-3">
-                ✓ Healthy Connection
+                ✓ Connected
               </span>
-              <h3 className="text-xl font-black mb-2 text-foreground">Active Use</h3>
+              <h3 className="text-xl font-black mb-2 text-foreground">Talking to people</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Messaging friends · Organizing meetups · Sharing meaningful content. You&apos;re present and intentional.
+                Texting friends, planning hangouts, and sharing photos. This keeps you connected and feels good.
               </p>
             </div>
             <div className="mt-auto flex items-center gap-2 pt-4 border-t border-[#BFDBFE]">
@@ -43,7 +43,7 @@ export function ScienceSection() {
                   </div>
                 ))}
               </div>
-              <span className="text-xs text-muted-foreground ml-1">Intentional, purposeful, connected</span>
+              <span className="text-xs text-muted-foreground ml-1">This part is fine</span>
             </div>
           </div>
 
@@ -54,16 +54,16 @@ export function ScienceSection() {
             </div>
             <div>
               <span className="inline-block text-[11px] font-black tracking-widest uppercase text-[#EA580C] bg-[#F97316]/15 rounded-full px-3 py-1 mb-3">
-                ↓ Declining Wellbeing
+                ↓ Feeling guilty
               </span>
-              <h3 className="text-xl font-black mb-2 text-foreground">Passive Consumption</h3>
+              <h3 className="text-xl font-black mb-2 text-foreground">Scrolling feeds</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Endlessly scrolling algorithm feeds. No goal. No end. The primary driver of screen-time guilt and anxiety.
+                Just scrolling through feeds with no actual goal. This is what makes you feel bad and guilty.
               </p>
             </div>
             <div className="mt-auto pt-4 border-t border-[#FED7AA]">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] text-muted-foreground font-semibold">Autopilot scroll session</span>
+                <span className="text-[11px] text-muted-foreground font-semibold">Scrolling without thinking</span>
                 <span className="text-[11px] text-[#EA580C] font-black">47 min</span>
               </div>
               <div className="w-full bg-[#FFEDD5] rounded-full h-1.5">

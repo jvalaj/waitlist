@@ -6,8 +6,7 @@ export function OverrideSection() {
       <div className="max-w-[900px] mx-auto">
         <div className="max-w-sm mx-auto bg-white rounded-3xl p-7 shadow-sm border border-border fade-up flex flex-col gap-5">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            The limit popup appears. You tap <strong className="text-foreground">&lsquo;Ignore Limit&rsquo;</strong>.
-            You haven&apos;t trained your mind. Only your thumb.
+            When screen time limits pop up, you just tap <strong className="text-foreground">&lsquo;Ignore Limit&rsquo;</strong>. It doesn&apos;t fix the habit—it just makes you really fast at closing the warning.
           </p>
 
           <div className="bg-[#F2F2F7] rounded-2xl overflow-hidden shadow-inner">
@@ -17,7 +16,7 @@ export function OverrideSection() {
               </div>
               <p className="font-black text-[15px]">Time Limit</p>
               <p className="text-xs text-[#6B7280] leading-snug max-w-[200px]">
-                You&apos;ve used 1 hour on Social Networking today.
+                You&apos;ve used 1 hour on social apps today.
               </p>
             </div>
             <div className="px-4 pb-4 flex flex-col gap-2">

@@ -16,7 +16,7 @@ export function SiteFooter() {
             ticker
           </span>
         </div>
-        <p className="text-xs text-muted-foreground">© 2026 Ticker. Built for a present mind.</p>
+        <p className="text-xs text-muted-foreground">© 2026 Ticker. Made to help you scroll less.</p>
       </div>
     </footer>
   )

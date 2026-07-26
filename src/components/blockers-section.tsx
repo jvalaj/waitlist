@@ -6,14 +6,13 @@ export function BlockersSection() {
         {/* Header */}
 
         <h2 className="text-[2rem] sm:text-[2.4rem] font-black tracking-tight leading-[1.12] mb-10 fade-up max-w-xl">
-          App blockers don&apos;t work. And you know it.
+          App blockers don&apos;t work. We all know it.
         </h2>
 
         <div className="bg-[#111113] text-white rounded-3xl p-7 shadow-sm fade-up flex flex-col justify-between gap-6">
           <div>
             <p className="text-sm text-white/70 leading-relaxed">
-              Forcing yourself to quit triggers <span className="text-white font-semibold">reactance</span>.
-              The second a block lifts, you doom-scroll twice as fast to make up for lost time.
+              When you block an app, it backfires. The moment you unlock it, you end up scrolling twice as fast to catch up.
             </p>
           </div>
           <div className="flex flex-col gap-2">

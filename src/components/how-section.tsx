@@ -8,10 +8,10 @@ export function HowSection() {
       <div className="sticky top-0 h-screen flex flex-col justify-center items-center px-6 gap-8 overflow-hidden">
         <div className="w-full max-w-[900px]">
           <h2 className="text-[2rem] sm:text-[2.4rem] font-black tracking-tight leading-[1.12] mb-3 fade-up max-w-xl">
-            Enter self-realization.
+            Just show the time.
           </h2>
           <p className="text-muted-foreground text-base fade-up max-w-lg">
-            No popups. No locks. Just a mirror in your Dynamic Island.
+            You don&apos;t need an app to lock you out. You just need to know how much time is passing. Ticker puts a live timer in your Dynamic Island. No popups, no blocks, and no rules. It just shows you how long you&apos;ve been on your phone. You make your own choice to put it down.
           </p>
         </div>
 

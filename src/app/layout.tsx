@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Ticker – Reclaim your time without losing your connection.',
+  title: 'Ticker – See how much time you spend scrolling.',
   description:
-    'Ticker is a mindful screen time companion for iOS. No blocks. No locks. Just a mirror. Join the waitlist.',
+    "Ticker is a simple iPhone app that shows you how long you've been scrolling. No blocks, no locks. Just a clock. Join the waitlist.",
   icons: { icon: '/images/logo.png' },
 }
 
