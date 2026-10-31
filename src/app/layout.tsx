@@ -19,9 +19,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/fonts/Jost.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+        {/* Hide the intro pieces before first paint. Skipped for reduced motion. If the intro script
+            never runs, everything is shown after a few seconds anyway. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var r=document.documentElement;r.classList.add('nms-intro');setTimeout(function(){if(!window.__nmsIntroRan)r.classList.remove('nms-intro')},4000)}catch(e){}})()`,
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
