@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Github } from 'lucide-react'
 
 const BETA_MAIL = 'mailto:jvalaj@usf.edu?subject=No%20More%20Scroll%20beta'
-const GITHUB_URL = 'https://github.com/jvalaj/autopilot'
+const GITHUB_URL = 'https://github.com/jvalaj/nomorescroll'
 
 const steps = [
   {
