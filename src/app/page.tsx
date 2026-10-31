@@ -1,6 +1,8 @@
 import Image from 'next/image'
+import { Github } from 'lucide-react'
 
 const BETA_MAIL = 'mailto:jvalaj@usf.edu?subject=No%20More%20Scroll%20beta'
+const GITHUB_URL = 'https://github.com/jvalaj/autopilot'
 
 const steps = [
   {
@@ -36,14 +38,25 @@ function Section({
   )
 }
 
-function BetaButton() {
+function Actions() {
   return (
-    <a
-      href={BETA_MAIL}
-      className="inline-flex items-center rounded-full bg-ink px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_24px_rgba(8,7,8,0.12)] transition-opacity hover:opacity-85"
-    >
-      Request beta access
-    </a>
+    <div className="flex flex-wrap items-center gap-3">
+      <a
+        href={BETA_MAIL}
+        className="inline-flex items-center rounded-full bg-ink px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_24px_rgba(8,7,8,0.12)] transition-opacity hover:opacity-85"
+      >
+        Request beta access
+      </a>
+      <a
+        href={GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-medium text-ink shadow-[0_6px_16px_rgba(8,7,8,0.08)] transition-shadow hover:shadow-[0_10px_24px_rgba(8,7,8,0.12)]"
+      >
+        <Github className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
+        View on GitHub
+      </a>
+    </div>
   )
 }
 
@@ -66,6 +79,9 @@ export default function Home() {
           <a href="#how" className="hidden transition-colors hover:text-ink sm:inline">How it works</a>
           <a href="#research" className="hidden transition-colors hover:text-ink sm:inline">Research</a>
           <a href="#beta" className="transition-colors hover:text-ink">Beta</a>
+          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="hidden transition-colors hover:text-ink sm:inline">
+            GitHub
+          </a>
         </nav>
       </div>
 
@@ -81,7 +97,7 @@ export default function Home() {
             going.
           </p>
           <div className="mt-10">
-            <BetaButton />
+            <Actions />
           </div>
         </header>
 
@@ -143,7 +159,7 @@ export default function Home() {
             access, or want to talk about the research, send a note.
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-3">
-            <BetaButton />
+            <Actions />
             <a
               href="mailto:jvalaj@usf.edu"
               className="text-[16px] underline decoration-ink/25 underline-offset-[6px] transition-colors hover:decoration-ink"
