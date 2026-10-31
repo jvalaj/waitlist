@@ -185,3 +185,44 @@ export function IntroController() {
 
   return null
 }
+
+/*
+ * The landing background: a fixed picture behind the first screen that fades to the white page as
+ * you scroll, so the sections below sit on white. Also tells the nav when it's over the picture,
+ * so its glass turns smoky with white text there and light with dark text over the white page.
+ */
+const FADE_DISTANCE = 0.75 // share of the screen height over which the picture fades out
+
+export function HeroBackdrop() {
+  useEffect(() => {
+    const root = document.documentElement
+    const nav = document.querySelector('.nms-navbar')
+    const hero = document.getElementById('hero')
+    let queued = false
+
+    function update() {
+      queued = false
+      const fade = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * FADE_DISTANCE)))
+      root.style.setProperty('--nms-hero-fade', fade.toFixed(3))
+      if (nav && hero) {
+        const navHeight = (nav as HTMLElement).offsetHeight
+        nav.classList.toggle('is-over-hero', hero.getBoundingClientRect().bottom > navHeight / 2 && fade < 0.6)
+      }
+    }
+    function onScroll() {
+      if (queued) return
+      queued = true
+      requestAnimationFrame(update)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    update()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
+  return <div className="nms-hero-bg" aria-hidden="true" />
+}

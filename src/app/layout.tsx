@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#EEEFF3',
+  themeColor: '#8B84DD',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/fonts/Jost.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+        <link rel="preload" href="/images/hero-bg.webp" as="image" type="image/webp" />
         {/* Hide the intro pieces before first paint. Skipped for reduced motion. If the intro script
             never runs, everything is shown after a few seconds anyway. */}
         <script
@@ -30,7 +32,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script src="/liquid-glass.js" strategy="afterInteractive" />
+      </body>
     </html>
   )
 }

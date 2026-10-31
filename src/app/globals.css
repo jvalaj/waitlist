@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  background: #eeeff3;
+  background: #ffffff;
   color: #080708;
   font-family: 'Jost', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -49,7 +49,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eeeff3;
+  background: #ffffff;
   color: #080708;
   transition: opacity 600ms var(--nms-ease), visibility 0s linear 600ms;
 }
@@ -118,4 +118,116 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .nms-bar { animation: none; transform: none; }
+}
+
+/* Landing background: fixed behind the first screen, fading to the white page as you scroll
+   (--nms-hero-fade, set by HeroBackdrop). A soft violet shade on the left, where the text sits,
+   keeps white text readable on the bright parts of the picture. */
+.nms-hero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(
+      100deg,
+      rgba(34, 20, 72, 0.48) 0%,
+      rgba(34, 20, 72, 0.34) 45%,
+      rgba(34, 20, 72, 0.16) 100%
+    ),
+    url('/images/hero-bg.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: calc(1 - var(--nms-hero-fade, 0));
+}
+/* On phones the text runs the full width, so the shade does too */
+@media (max-width: 640px) {
+  .nms-hero-bg {
+    background-image: linear-gradient(rgba(34, 20, 72, 0.44), rgba(34, 20, 72, 0.44)), url('/images/hero-bg.webp');
+  }
+}
+
+.nms-on-image {
+  text-shadow: 0 1px 24px rgba(34, 20, 72, 0.25);
+}
+
+/* The white hero text leaves with the picture, faster than it, so it never sits on the pale,
+   half-faded picture (or bends through the nav glass) */
+#hero {
+  opacity: calc(1 - var(--nms-hero-fade, 0) * 1.8);
+}
+
+/* Liquid glass, from the bapple project (public/liquid-glass.js does the refraction) */
+:root {
+  --lg-tint-clear: rgba(255, 255, 255, 0.06);
+  --lg-rim: inset 0 0 4px 0 rgba(250, 250, 250, 0.55);
+  --lg-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
+  --lg-frost: blur(18px) saturate(180%);
+}
+.lg-glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: var(--lg-shadow);
+  --lg-tint: var(--lg-tint-clear);
+}
+.lg-refract {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-backdrop-filter: var(--lg-frost);
+  backdrop-filter: var(--lg-frost);
+}
+.lg-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--lg-tint);
+  box-shadow: var(--lg-rim);
+  pointer-events: none;
+  transition: background 400ms var(--nms-ease), box-shadow 400ms var(--nms-ease);
+}
+
+/* The nav: the glass bar is its own child so the bar's contents sit above it */
+.nms-nav-glass {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  --lg-tint: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.6), 0 1px 0 rgba(0, 0, 0, 0.06), 0 6px 24px rgba(0, 0, 0, 0.06);
+}
+.nms-navbar {
+  color: #080708;
+  transition: color 400ms var(--nms-ease);
+}
+.nms-nav-link {
+  opacity: 0.7;
+  transition: opacity 200ms var(--nms-ease);
+}
+.nms-nav-link:hover {
+  opacity: 1;
+}
+/* Over the picture: smoked glass with white text */
+.nms-navbar.is-over-hero {
+  color: #ffffff;
+}
+.nms-navbar.is-over-hero .nms-nav-glass {
+  --lg-tint: rgba(28, 18, 60, 0.34);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+}
+.nms-navbar.is-over-hero .nms-nav-link {
+  opacity: 0.85;
+}
+
+/* Secondary hero button: clear liquid glass over the picture */
+.nms-glass-button {
+  --lg-tint: rgba(255, 255, 255, 0.12);
+  --lg-shadow: 0 10px 30px rgba(40, 20, 60, 0.2);
+  transition: transform 200ms var(--nms-ease);
+}
+.nms-glass-button:hover {
+  --lg-tint: rgba(255, 255, 255, 0.2);
 }

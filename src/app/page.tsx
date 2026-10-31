@@ -1,6 +1,5 @@
-import Image from 'next/image'
 import { Github } from 'lucide-react'
-import { IntroController, Preloader } from '@/components/intro'
+import { HeroBackdrop, IntroController, Preloader } from '@/components/intro'
 
 const BETA_MAIL = 'mailto:jvalaj@usf.edu?subject=No%20More%20Scroll%20beta'
 const GITHUB_URL = 'https://github.com/jvalaj/nomorescroll'
@@ -44,12 +43,17 @@ function Section({
   )
 }
 
-function Actions() {
+function Actions({ onImage = false }: { onImage?: boolean }) {
   return (
     <div data-flip="letters" data-fade className="flex flex-wrap items-center gap-3">
       <a
         href={BETA_MAIL}
-        className="inline-flex items-center rounded-full bg-ink px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_24px_rgba(8,7,8,0.12)] transition-opacity hover:opacity-85"
+        className={
+          'inline-flex items-center rounded-full px-6 py-3 text-[15px] font-medium transition-opacity hover:opacity-85 ' +
+          (onImage
+            ? 'bg-white text-ink shadow-[0_10px_30px_rgba(40,20,60,0.25)]'
+            : 'bg-ink text-white shadow-[0_10px_24px_rgba(8,7,8,0.12)]')
+        }
       >
         <span>Request beta access</span>
       </a>
@@ -57,7 +61,12 @@ function Actions() {
         href={GITHUB_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-medium text-ink shadow-[0_6px_16px_rgba(8,7,8,0.08)] transition-shadow hover:shadow-[0_10px_24px_rgba(8,7,8,0.12)]"
+        className={
+          'inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-medium ' +
+          (onImage
+            ? 'lg-glass nms-glass-button text-white'
+            : 'bg-white text-ink shadow-[0_6px_16px_rgba(8,7,8,0.08)] transition-shadow hover:shadow-[0_10px_24px_rgba(8,7,8,0.12)]')
+        }
       >
         <Github className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
         <span>View on GitHub</span>
@@ -71,51 +80,45 @@ export default function Home() {
     <>
       <Preloader />
       <IntroController />
-      <div className="mx-auto max-w-[1180px] px-6 md:px-12">
-        <div className="nms-navbar flex h-20 items-center justify-between md:h-24">
-          <a href="#" className="flex items-center gap-3">
-            <Image
-              src="/images/icon.png"
-              alt=""
-              width={36}
-              height={36}
-              priority
-              className="rounded-[9px] shadow-[0_6px_16px_rgba(8,7,8,0.10)]"
-            />
-            <span className="text-[17px] font-medium">No More Scroll</span>
+      <HeroBackdrop />
+      <header className="nms-navbar is-over-hero sticky top-0 z-40">
+        <span className="lg-glass nms-nav-glass" aria-hidden="true" />
+        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 md:h-[72px] md:px-12">
+          <a href="#" className="text-[18px] font-medium tracking-[-0.005em]">
+            No More Scroll
           </a>
-          <nav className="flex items-center gap-8 text-[15px] text-ink/70">
-            <a href="#how" className="hidden transition-colors hover:text-ink sm:inline">How it works</a>
-            <a href="#research" className="hidden transition-colors hover:text-ink sm:inline">Research</a>
-            <a href="#beta" className="transition-colors hover:text-ink">Availability</a>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden transition-colors hover:text-ink sm:inline"
-            >
+          <nav className="flex items-center gap-8 text-[15px]">
+            <a href="#how" className="nms-nav-link hidden sm:inline">How it works</a>
+            <a href="#research" className="nms-nav-link hidden sm:inline">Research</a>
+            <a href="#beta" className="nms-nav-link">Availability</a>
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="nms-nav-link hidden sm:inline">
               GitHub
             </a>
           </nav>
         </div>
+      </header>
 
+      <div className="mx-auto max-w-[1180px] px-6 md:px-12">
         <main>
-          <header className="pb-20 pt-4 md:pb-28 md:pt-6">
+          <section
+            id="hero"
+            className="flex min-h-[calc(100svh-4rem)] flex-col justify-center pb-24 pt-10 text-white md:min-h-[calc(100svh-72px)] md:pb-32"
+          >
             <h1
               data-flip="letters"
-              className="max-w-[820px] text-[34px] font-light leading-[1.12] tracking-[-0.01em] sm:text-[44px] lg:text-[54px]"
+              className="nms-on-image max-w-[820px] text-[34px] font-light leading-[1.12] tracking-[-0.01em] sm:text-[44px] lg:text-[54px]"
             >
               Reducing compulsive scrolling without restricting access.
             </h1>
-            <p data-flip="words" className="mt-8 max-w-[640px] text-[20px] leading-[1.6] text-ink/85 md:text-[22px]">
+            <p data-flip="words" className="nms-on-image mt-8 max-w-[640px] text-[20px] leading-[1.6] text-white md:text-[22px]">
               No More Scroll is an iOS application that interrupts extended sessions in social media
               and short-video apps with a brief, context-aware check-in. Users remain in control of
               whether to continue.
             </p>
             <div className="mt-10">
-              <Actions />
+              <Actions onImage />
             </div>
-          </header>
+          </section>
 
           <Section title="Background">
             <p data-flip="words">
