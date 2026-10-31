@@ -6,7 +6,13 @@ export const metadata: Metadata = {
   title: 'No More Scroll',
   description:
     "An iPhone app that taps you on the shoulder when you've been scrolling on autopilot, and a research project on check-ins people don't turn off. In beta, launching soon.",
-  icons: { icon: '/images/icon.png', apple: '/images/icon.png' },
+  icons: {
+    icon: [
+      { url: '/images/favicon.png', sizes: '64x64', type: 'image/png' },
+      { url: '/images/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: '/images/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'No More Scroll',
     description: "An iPhone app that taps you on the shoulder when you've been scrolling on autopilot.",

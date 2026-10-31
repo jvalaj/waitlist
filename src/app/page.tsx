@@ -84,7 +84,8 @@ export default function Home() {
       <header className="nms-navbar is-over-hero sticky top-0 z-40">
         <span className="lg-glass nms-nav-glass" aria-hidden="true" />
         <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 md:h-[72px] md:px-12">
-          <a href="#" className="text-[18px] font-medium tracking-[-0.005em]">
+          <a href="#" className="flex items-center gap-2.5 text-[18px] font-medium tracking-[-0.005em]">
+            <span className="nms-mark" aria-hidden="true" />
             No More Scroll
           </a>
           <nav className="flex items-center gap-8 text-[15px]">
@@ -108,7 +109,7 @@ export default function Home() {
               data-flip="letters"
               className="nms-on-image max-w-[820px] text-[34px] font-light leading-[1.12] tracking-[-0.01em] sm:text-[44px] lg:text-[54px]"
             >
-              Reducing compulsive scrolling without restricting access.
+              Reduce compulsive scrolling without restricting access.
             </h1>
             <p data-flip="words" className="nms-on-image mt-8 max-w-[640px] text-[20px] leading-[1.6] text-white md:text-[22px]">
               No More Scroll is an iOS application that interrupts extended sessions in social media
@@ -183,6 +184,9 @@ export default function Home() {
             </p>
           </Section>
 
+        </main>
+
+        <div className="nms-end pt-[28vh]">
           <Section id="beta" title="Availability">
             <p data-flip="words">
               No More Scroll is currently in private beta and will be released on iOS soon. For beta
@@ -199,21 +203,20 @@ export default function Home() {
               </a>
             </div>
           </Section>
-        </main>
-
-        <footer className="grid gap-4 border-t border-ink/10 py-10 text-[14px] leading-relaxed text-ink/65 md:grid-cols-12 md:gap-10">
-          <p data-flip="letters" className="md:col-span-4">© 2026 No More Scroll</p>
-          <div className="space-y-2 md:col-span-8 lg:col-span-7">
-            <p data-flip="words">
-              1. Braghieri, L., Levy, R., &amp; Makarin, A. (2022). Social media and mental health.{' '}
-              <em>American Economic Review</em>, 112(11), 3660–3693.
-            </p>
-            <p data-flip="words">
-              2. Kim, J., Jung, H., Ko, M., &amp; Lee, U. (2019). GoalKeeper: Exploring interaction
-              lockout mechanisms for regulating smartphone use. <em>Proc. ACM IMWUT</em>, 3(1).
-            </p>
-          </div>
-        </footer>
+          <footer className="grid gap-4 border-t border-ink/10 py-10 text-[14px] leading-relaxed text-ink/65 md:grid-cols-12 md:gap-10">
+            <p data-flip="letters" className="md:col-span-4">© 2026 No More Scroll</p>
+            <div className="space-y-2 md:col-span-8 lg:col-span-7">
+              <p data-flip="words">
+                1. Braghieri, L., Levy, R., &amp; Makarin, A. (2022). Social media and mental health.{' '}
+                <em>American Economic Review</em>, 112(11), 3660–3693.
+              </p>
+              <p data-flip="words">
+                2. Kim, J., Jung, H., Ko, M., &amp; Lee, U. (2019). GoalKeeper: Exploring interaction
+                lockout mechanisms for regulating smartphone use. <em>Proc. ACM IMWUT</em>, 3(1).
+              </p>
+            </div>
+          </footer>
+        </div>
       </div>
     </>
   )

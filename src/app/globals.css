@@ -16,6 +16,7 @@ html {
 }
 
 body {
+  overflow-x: clip;
   background: #ffffff;
   color: #080708;
   font-family: 'Jost', system-ui, sans-serif;
@@ -108,6 +109,7 @@ body {
   transform: perspective(700px);
 }
 
+
 .nms-intro [data-fade] {
   opacity: 0;
   transition: opacity 700ms var(--nms-ease);
@@ -120,40 +122,58 @@ body {
   .nms-bar { animation: none; transform: none; }
 }
 
-/* Landing background: fixed behind the first screen, fading to the white page as you scroll
-   (--nms-hero-fade, set by HeroBackdrop). A soft violet shade on the left, where the text sits,
+/* An eased fade to white (a straight linear fade shows a visible band where it starts) */
+:root {
+  --nms-to-white: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) calc(100% - 50vh),
+    rgba(255, 255, 255, 0.04) calc(100% - 42vh),
+    rgba(255, 255, 255, 0.14) calc(100% - 34vh),
+    rgba(255, 255, 255, 0.3) calc(100% - 26vh),
+    rgba(255, 255, 255, 0.52) calc(100% - 18vh),
+    rgba(255, 255, 255, 0.74) calc(100% - 10vh),
+    rgba(255, 255, 255, 0.92) calc(100% - 4vh),
+    #ffffff 100%
+  );
+  --nms-from-white: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0) calc(100% - 36vh),
+    rgba(255, 255, 255, 0.06) calc(100% - 30vh),
+    rgba(255, 255, 255, 0.2) calc(100% - 23vh),
+    rgba(255, 255, 255, 0.42) calc(100% - 16vh),
+    rgba(255, 255, 255, 0.68) calc(100% - 9vh),
+    rgba(255, 255, 255, 0.9) calc(100% - 3vh),
+    #ffffff 100%
+  );
+}
+
+/* Landing background: the picture sits behind the first screen and scrolls away with it. Its
+   bottom edge blends into the white page. A soft violet shade on the left, where the text sits,
    keeps white text readable on the bright parts of the picture. */
 .nms-hero-bg {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: -1;
+  width: 100%;
+  height: calc(100svh + 34vh);
   pointer-events: none;
-  background-image: linear-gradient(
-      100deg,
-      rgba(34, 20, 72, 0.48) 0%,
-      rgba(34, 20, 72, 0.34) 45%,
-      rgba(34, 20, 72, 0.16) 100%
-    ),
+  background-image: var(--nms-to-white),
+    linear-gradient(100deg, rgba(34, 20, 72, 0.48) 0%, rgba(34, 20, 72, 0.34) 45%, rgba(34, 20, 72, 0.16) 100%),
     url('/images/hero-bg.webp');
   background-size: cover;
   background-position: center;
-  opacity: calc(1 - var(--nms-hero-fade, 0));
 }
 /* On phones the text runs the full width, so the shade does too */
 @media (max-width: 640px) {
   .nms-hero-bg {
-    background-image: linear-gradient(rgba(34, 20, 72, 0.44), rgba(34, 20, 72, 0.44)), url('/images/hero-bg.webp');
+    background-image: var(--nms-to-white),
+      linear-gradient(rgba(34, 20, 72, 0.44), rgba(34, 20, 72, 0.44)), url('/images/hero-bg.webp');
   }
 }
 
 .nms-on-image {
   text-shadow: 0 1px 24px rgba(34, 20, 72, 0.25);
-}
-
-/* The white hero text leaves with the picture, faster than it, so it never sits on the pale,
-   half-faded picture (or bends through the nav glass) */
-#hero {
-  opacity: calc(1 - var(--nms-hero-fade, 0) * 1.8);
 }
 
 /* Liquid glass, from the bapple project (public/liquid-glass.js does the refraction) */
@@ -196,7 +216,7 @@ body {
   position: absolute;
   inset: 0;
   z-index: -1;
-  --lg-tint: rgba(255, 255, 255, 0.62);
+  --lg-tint: rgba(255, 255, 255, 0.8);
   box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.6), 0 1px 0 rgba(0, 0, 0, 0.06), 0 6px 24px rgba(0, 0, 0, 0.06);
 }
 .nms-navbar {
@@ -230,4 +250,36 @@ body {
 }
 .nms-glass-button:hover {
   --lg-tint: rgba(255, 255, 255, 0.2);
+}
+
+/* The last section (and footer) sit on the second picture, its top edge blending in from white.
+   Text here stays dark: the picture is bright enough everywhere for ink text to read. The layer
+   is full-bleed even though the section sits in the page's centred column. */
+.nms-end {
+  position: relative;
+}
+.nms-end::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background-image: var(--nms-from-white), linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)),
+    url('/images/end-bg.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+/* The logo mark, drawn in the nav's text colour (white over the picture, dark over the page) */
+.nms-mark {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-color: currentColor;
+  -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  mask: url('/images/logo-mark.png') center / contain no-repeat;
 }

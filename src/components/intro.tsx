@@ -24,6 +24,7 @@ const WORD_STEP = 28 // ms between words
 const MAX_SPREAD = 900 // a block never takes longer than this to start its last unit
 const NAV_SLIDE = 700 // ms after the preloader starts lifting before the first text block
 const SETTLE = 450 // after a block's last unit starts, wait this long before the next block
+const SETTLE_TIME = 1150 // a unit's longest transition (transform, 1100ms) plus a little
 const BACKLOG_EASE = 4000 // ms of queued text at which handoffs reach their quickest
 const MIN_PACE = 0.3 // quickest handoff, as a share of the normal one
 
@@ -125,6 +126,15 @@ function split(el: HTMLElement): number {
   return Math.max(count - 1, 0) * step
 }
 
+// Puts a block's text back as plain text, keeping any inline markup (links, <sup>, <em>)
+function unsplit(el: Element) {
+  el.classList.add('is-done')
+  el.querySelectorAll('.nms-word').forEach(word => word.replaceWith(document.createTextNode(word.textContent ?? '')))
+  el.normalize()
+  el.querySelectorAll('[aria-label]').forEach(node => node.removeAttribute('aria-label'))
+  el.removeAttribute('aria-label')
+}
+
 export function IntroController() {
   useEffect(() => {
     const root = document.documentElement
@@ -148,6 +158,9 @@ export function IntroController() {
       const pace = Math.max(MIN_PACE, 1 - (start - now) / BACKLOG_EASE)
       nextFree = start + ((spread.get(el) ?? 0) + SETTLE) * pace
       later(start - now, () => el.classList.add('is-in'))
+      // Once every unit has landed, turn the block back into plain text. Thousands of separate
+      // letter and word boxes were most of the paint work while scrolling.
+      later(start - now + (spread.get(el) ?? 0) + SETTLE_TIME, () => unsplit(el))
     }
 
     const observer = new IntersectionObserver(
@@ -187,27 +200,22 @@ export function IntroController() {
 }
 
 /*
- * The landing background: a fixed picture behind the first screen that fades to the white page as
- * you scroll, so the sections below sit on white. Also tells the nav when it's over the picture,
- * so its glass turns smoky with white text there and light with dark text over the white page.
+ * The landing background: a picture behind the first screen that scrolls away with the page, its
+ * bottom edge blending into white (see .nms-hero-bg). Also tells the nav when it's over the
+ * picture, so its glass is smoky with white text there and light with dark text over the page.
  */
-const FADE_DISTANCE = 0.75 // share of the screen height over which the picture fades out
+const NAV_SWITCH = 0.3 // switch the nav once the hero's bottom is this far up the screen (the pale part)
 
 export function HeroBackdrop() {
   useEffect(() => {
-    const root = document.documentElement
     const nav = document.querySelector('.nms-navbar')
     const hero = document.getElementById('hero')
+    if (!nav || !hero) return
     let queued = false
 
     function update() {
       queued = false
-      const fade = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * FADE_DISTANCE)))
-      root.style.setProperty('--nms-hero-fade', fade.toFixed(3))
-      if (nav && hero) {
-        const navHeight = (nav as HTMLElement).offsetHeight
-        nav.classList.toggle('is-over-hero', hero.getBoundingClientRect().bottom > navHeight / 2 && fade < 0.6)
-      }
+      nav!.classList.toggle('is-over-hero', hero!.getBoundingClientRect().bottom > window.innerHeight * NAV_SWITCH)
     }
     function onScroll() {
       if (queued) return
