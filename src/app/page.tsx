@@ -87,8 +87,7 @@ export default function Home() {
 
       <main>
         <header className="rise pb-20 pt-4 md:pb-28 md:pt-6">
-          <p className="text-[15px] text-ink/70">In private beta · Launching soon on iPhone</p>
-          <h1 className="mt-5 max-w-[900px] text-[40px] font-light leading-[1.08] tracking-[-0.015em] sm:text-[56px] lg:text-[76px]">
+          <h1 className="max-w-[900px] text-[40px] font-light leading-[1.08] tracking-[-0.015em] sm:text-[56px] lg:text-[76px]">
             Scroll less, without being locked out.
           </h1>
           <p className="mt-8 max-w-[640px] text-[20px] leading-[1.6] text-ink/85 md:text-[22px]">
