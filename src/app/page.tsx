@@ -46,23 +46,21 @@ function Section({
 
 function Actions() {
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div data-flip="letters" data-fade className="flex flex-wrap items-center gap-3">
       <a
         href={BETA_MAIL}
-        data-fade
         className="inline-flex items-center rounded-full bg-ink px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_24px_rgba(8,7,8,0.12)] transition-opacity hover:opacity-85"
       >
-        <span data-flip="letters">Request beta access</span>
+        <span>Request beta access</span>
       </a>
       <a
         href={GITHUB_URL}
         target="_blank"
         rel="noopener noreferrer"
-        data-fade
         className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-medium text-ink shadow-[0_6px_16px_rgba(8,7,8,0.08)] transition-shadow hover:shadow-[0_10px_24px_rgba(8,7,8,0.12)]"
       >
         <Github className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
-        <span data-flip="letters">View on GitHub</span>
+        <span>View on GitHub</span>
       </a>
     </div>
   )
@@ -74,7 +72,7 @@ export default function Home() {
       <Preloader />
       <IntroController />
       <div className="mx-auto max-w-[1180px] px-6 md:px-12">
-        <div className="flex h-20 items-center justify-between md:h-24">
+        <div className="nms-navbar flex h-20 items-center justify-between md:h-24">
           <a href="#" className="flex items-center gap-3">
             <Image
               src="/images/icon.png"
@@ -84,17 +82,16 @@ export default function Home() {
               priority
               className="rounded-[9px] shadow-[0_6px_16px_rgba(8,7,8,0.10)]"
             />
-            <span data-flip="letters" className="text-[17px] font-medium">No More Scroll</span>
+            <span className="text-[17px] font-medium">No More Scroll</span>
           </a>
           <nav className="flex items-center gap-8 text-[15px] text-ink/70">
-            <a href="#how" data-flip="letters" className="hidden transition-colors hover:text-ink sm:inline">How it works</a>
-            <a href="#research" data-flip="letters" className="hidden transition-colors hover:text-ink sm:inline">Research</a>
-            <a href="#beta" data-flip="letters" className="transition-colors hover:text-ink">Availability</a>
+            <a href="#how" className="hidden transition-colors hover:text-ink sm:inline">How it works</a>
+            <a href="#research" className="hidden transition-colors hover:text-ink sm:inline">Research</a>
+            <a href="#beta" className="transition-colors hover:text-ink">Availability</a>
             <a
               href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              data-flip="letters"
               className="hidden transition-colors hover:text-ink sm:inline"
             >
               GitHub
@@ -149,10 +146,11 @@ export default function Home() {
               {steps.map((s, i) => (
                 <li key={s.title}>
                   <span
+                    data-flip="letters"
                     data-fade
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[15px] font-medium shadow-[0_6px_16px_rgba(8,7,8,0.08)]"
                   >
-                    <span data-flip="letters">{String(i + 1)}</span>
+                    {String(i + 1)}
                   </span>
                   <h3 data-flip="letters" className="mt-5 text-[21px] font-medium">{s.title}</h3>
                   <p data-flip="words" className="mt-3 text-[18px] leading-[1.65] text-ink/85">{s.body}</p>

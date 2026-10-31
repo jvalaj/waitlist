@@ -71,6 +71,17 @@ body {
   to { transform: scaleY(1); }
 }
 
+/* The nav bar slides down as one piece while the preloader lifts */
+.nms-intro .nms-navbar {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: transform 1000ms var(--nms-ease-out), opacity 600ms var(--nms-ease);
+}
+.nms-intro.nms-loaded .nms-navbar {
+  opacity: 1;
+  transform: none;
+}
+
 /* Text */
 .nms-word {
   display: inline-block;
