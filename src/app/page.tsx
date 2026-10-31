@@ -1,24 +1,22 @@
-import { FloatingIsland } from '@/components/floating-island'
+import { SiteNav } from '@/components/site-nav'
 import { HeroSection } from '@/components/hero-section'
-import { BlockersSection } from '@/components/blockers-section'
-import { OverrideSection } from '@/components/override-section'
-import { ScienceSection } from '@/components/science-section'
-import { HowSection } from '@/components/how-section'
+import { EvidenceSection } from '@/components/evidence-section'
+import { AppSection } from '@/components/app-section'
+import { ResearchSection } from '@/components/research-section'
 import { CTASection } from '@/components/cta-section'
 import { SiteFooter } from '@/components/site-footer'
-import { ScrollAnimations } from '@/components/scroll-animations'
+import { RevealObserver } from '@/components/reveal-observer'
 
 export default function Home() {
   return (
     <>
-      <FloatingIsland />
-      <ScrollAnimations />
+      <RevealObserver />
+      <SiteNav />
       <main>
         <HeroSection />
-        <BlockersSection />
-        <OverrideSection />
-        <ScienceSection />
-        <HowSection />
+        <EvidenceSection />
+        <AppSection />
+        <ResearchSection />
         <CTASection />
       </main>
       <SiteFooter />

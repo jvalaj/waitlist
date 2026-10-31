@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -10,108 +9,82 @@ export function CTASection() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [queueNum, setQueueNum] = useState('#1,432')
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    const saved = localStorage.getItem('ticker_waitlist')
-    if (saved) {
-      const data = JSON.parse(saved)
-      setQueueNum(data.queue)
-      setSuccess(true)
-    }
+    try {
+      if (localStorage.getItem('nomorescroll_waitlist')) setSuccess(true)
+    } catch {}
   }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email.trim() || loading) return
     setLoading(true)
-
-    let queue = '#1,432'
+    setError('')
     try {
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-      if (res.ok) {
-        const data = await res.json()
-        queue = data.queueNumber || queue
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Something went wrong. Please try again.')
       }
-    } catch {
-      const count = parseInt(localStorage.getItem('ticker_count') || '0')
-      queue = `#${(1432 + count).toLocaleString()}`
-      localStorage.setItem('ticker_count', (count + 1).toString())
+      try {
+        localStorage.setItem('nomorescroll_waitlist', JSON.stringify({ ts: Date.now() }))
+      } catch {}
+      setSuccess(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
     }
-
-    localStorage.setItem('ticker_waitlist', JSON.stringify({ email, queue, ts: Date.now() }))
-    setQueueNum(queue)
-    setSuccess(true)
-    setLoading(false)
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-24 bg-white text-center">
-      <div className="max-w-[680px] w-full">
-        <div className="max-w-[560px] mx-auto mb-12 fade-up">
-          <Image
-            src="/images/logo.png"
-            alt="Ticker"
-            width={72}
-            height={72}
-            className="rounded-[18px] mx-auto mb-7 shadow-md"
-          />
-          <h2 className="text-[2rem] sm:text-[2.2rem] font-black tracking-tight leading-snug mb-4">
-            You&apos;ve been on this page for{' '}
-            <span id="cta-time" className="text-[#0066FF]">
-              0 seconds
-            </span>
-            .
-          </h2>
-          <p className="text-base text-muted-foreground leading-relaxed mb-3">
-            Imagine seeing that timer every time you open Instagram or TikTok. No locks, no guilt. Just a clock.
-          </p>
-          <p className="text-sm text-muted-foreground/70">
-            We let people in weekly. Leave your email and we&apos;ll invite you next.
-          </p>
-        </div>
+    <section id="join" className="bg-gradient-to-b from-[#FCFCFC] to-[#F2F5FA] px-6 py-28 text-center">
+      <div className="mx-auto max-w-[560px]">
+        <span className="fade-up inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-[12px] font-bold text-ink">
+          <span className="h-2 w-2 rounded-full bg-timer-green" />
+          Now in beta · Launching soon
+        </span>
+        <h2 className="fade-up mt-6 text-[2rem] font-black leading-snug tracking-tight text-ink sm:text-[2.4rem]">
+          Be among the first to try it.
+        </h2>
+        <p className="fade-up mt-4 text-[16px] leading-relaxed text-sub">
+          Leave your email and we will write to you about beta access and the launch. No spam.
+        </p>
 
-        <div className="max-w-[460px] mx-auto fade-up">
+        <div className="fade-up mx-auto mt-10 max-w-[460px]">
           {!success ? (
             <form onSubmit={handleSubmit}>
-              <div className="flex items-center bg-secondary border border-border rounded-full p-1.5 focus-within:border-[#0066FF] focus-within:shadow-[0_0_0_4px_rgba(0,102,255,0.08)] transition-all duration-300">
+              <div className="flex items-center rounded-full border border-line bg-white p-1.5 transition-all duration-300 focus-within:border-brand-blue focus-within:shadow-[0_0_0_4px_rgba(0,102,255,0.08)]">
                 <Input
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder="you@school.edu"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  className="flex-1 min-w-0"
+                  className="min-w-0 flex-1"
                 />
                 <Button type="submit" disabled={loading} className="flex-shrink-0">
                   {loading ? 'Saving…' : 'Join the waitlist'}
                 </Button>
               </div>
-              <p className="text-[11px] font-semibold text-muted-foreground mt-3">
-                Needs iOS 17 or newer. No spam.
-              </p>
+              {error && <p className="mt-3 text-[12px] font-semibold text-destructive">{error}</p>}
+              <p className="mt-3 text-[11px] font-semibold text-sub">Needs iOS 17 or newer.</p>
             </form>
           ) : (
             <Card className="animate-pop-in text-center">
               <CardContent className="p-8">
-                <div className="w-11 h-11 rounded-full bg-blue-50 text-[#0066FF] flex items-center justify-center text-lg font-black mx-auto mb-4">
+                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-lg font-black text-brand-blue">
                   ✓
                 </div>
-                <h3 className="text-xl font-black mb-2">You&apos;re on the list.</h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                  We&apos;ll email you soon.
-                </p>
-                <div className="inline-flex flex-col items-center bg-secondary border border-border rounded-2xl px-8 py-3">
-                  <span className="text-[9px] font-black uppercase tracking-[0.12em] text-muted-foreground mb-1">
-                    Your spot
-                  </span>
-                  <span className="text-2xl font-black tabular-nums">{queueNum}</span>
-                </div>
+                <h3 className="mb-2 text-xl font-black">You are on the list.</h3>
+                <p className="text-sm text-sub">We will email you about beta access and the launch.</p>
               </CardContent>
             </Card>
           )}

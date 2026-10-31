@@ -31,6 +31,10 @@ const config: Config = {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
+        ink: '#14141A',
+        sub: '#6B7380',
+        line: '#E0E3EB',
+        'timer-green': '#66D98C',
         brand: {
           blue: '#0066FF',
           green: '#34D399',
