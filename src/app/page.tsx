@@ -87,7 +87,7 @@ export default function Home() {
 
       <main>
         <header className="rise pb-20 pt-4 md:pb-28 md:pt-6">
-          <h1 className="max-w-[900px] text-[40px] font-light leading-[1.08] tracking-[-0.015em] sm:text-[56px] lg:text-[76px]">
+          <h1 className="max-w-[820px] text-[34px] font-light leading-[1.12] tracking-[-0.01em] sm:text-[44px] lg:text-[54px]">
             Reducing compulsive scrolling without restricting access.
           </h1>
           <p className="mt-8 max-w-[640px] text-[20px] leading-[1.6] text-ink/85 md:text-[22px]">
