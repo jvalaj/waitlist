@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             never runs, everything is shown after a few seconds anyway. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var r=document.documentElement;r.classList.add('nms-intro');setTimeout(function(){if(!window.__nmsIntroRan)r.classList.remove('nms-intro')},4000)}catch(e){}})()`,
+            __html: `(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var r=document.documentElement;r.classList.add('nms-intro');setTimeout(function(){if(!window.__nmsIntroRan)r.classList.remove('nms-intro')},6000)}catch(e){}})()`,
           }}
         />
       </head>

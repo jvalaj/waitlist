@@ -28,93 +28,83 @@ body {
   background: rgba(55, 114, 255, 0.18);
 }
 
-/* The intro, ported from bapple's store: one thing at a time.
-   The nav drops in left to right, "Introducing No More Scroll" types itself out, the headline flips
-   down letter by letter out of a blur, then the paragraph and buttons rise. Below the hero, sections
-   rise in as they scroll into view. Everything is only hidden under html.nms-intro (set by an inline
-   script in layout.tsx, skipped for reduced motion), so without JS the page just shows. */
+/* The intro (components/intro.tsx). Every piece of text flips in like bapple's "iPhone Duo" title:
+   it hangs from its top edge, tipped back and blurred, then swings down into place. Nothing else
+   moves; buttons and number badges only fade so their text has something to land in. Everything is
+   only hidden under html.nms-intro (set by an inline script in layout.tsx, skipped for reduced
+   motion), so without JS the page just shows. */
 :root {
   --nms-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --nms-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nms-intro .nms-drop {
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 800ms var(--nms-ease-out), transform 800ms var(--nms-ease-out);
-  transition-delay: calc(200ms + var(--n, 0) * 60ms);
+/* Preloader: a week of screen time drawing itself, each day shorter, then it lifts. */
+.nms-preloader {
+  display: none;
 }
-.nms-intro.nms-nav .nms-drop {
-  opacity: 1;
-  transform: none;
+.nms-intro .nms-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeeff3;
+  color: #080708;
+  transition: opacity 600ms var(--nms-ease), visibility 0s linear 600ms;
+}
+.nms-intro.nms-loaded .nms-preloader {
+  opacity: 0;
+  visibility: hidden;
+}
+.nms-intro:not(.nms-loaded) body {
+  overflow: hidden;
+}
+.nms-bar {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  animation: nms-bar 900ms var(--nms-ease-out) forwards;
+  animation-delay: calc(150ms + var(--b) * 110ms);
+}
+@keyframes nms-bar {
+  to { transform: scaleY(1); }
 }
 
-.nms-intro .nms-eyebrow .nms-char {
-  opacity: 0;
-}
-.nms-intro .nms-eyebrow .nms-char.is-typed {
-  opacity: 1;
-}
-
-/* Typing caret. Negative margin so it never nudges the line while it moves along. */
-.nms-caret {
+/* Text */
+.nms-word {
   display: inline-block;
-  width: 2px;
-  height: 1.05em;
-  margin: 0 -1px;
-  vertical-align: -0.15em;
-  background: currentColor;
-  border-radius: 1px;
-  animation: nms-caret 1s steps(1) infinite;
-  transition: opacity 300ms var(--nms-ease);
+  white-space: nowrap;
 }
-.nms-caret.is-done {
-  opacity: 0;
-}
-@keyframes nms-caret {
-  50% { background: transparent; }
-}
-
-/* Each letter hangs from its top edge, tipped back and blurred, then swings down into place */
-.nms-title {
-  perspective: 700px;
-}
-.nms-title .nms-letter {
+.nms-unit {
   display: inline-block;
 }
-.nms-intro .nms-title .nms-letter {
+.nms-intro [data-flip]:not(.is-split) {
+  visibility: hidden;
+}
+.nms-intro [data-flip] .nms-unit {
   opacity: 0;
   filter: blur(14px);
-  transform: translateY(-0.35em) rotateX(-85deg);
+  transform: perspective(700px) translateY(-0.35em) rotateX(-85deg);
   transform-origin: 50% 0;
   transition: opacity 700ms var(--nms-ease-out), filter 1000ms var(--nms-ease-out),
     transform 1100ms var(--nms-ease-out);
-  transition-delay: calc(var(--i) * 18ms);
+  transition-delay: calc(var(--i) * var(--step, 18ms));
 }
-.nms-intro .nms-title.is-in .nms-letter {
+.nms-intro [data-flip].is-in .nms-unit {
   opacity: 1;
   filter: none;
-  transform: none;
+  transform: perspective(700px);
 }
 
-.nms-intro .nms-rise {
+.nms-intro [data-fade] {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 1000ms var(--nms-ease-out), transform 1000ms var(--nms-ease-out);
-  transition-delay: var(--d, 0ms);
+  transition: opacity 700ms var(--nms-ease);
 }
-.nms-intro.nms-rest .nms-rise {
+.nms-intro [data-fade].is-in {
   opacity: 1;
-  transform: none;
 }
 
-.nms-intro [data-reveal] {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 900ms var(--nms-ease-out), transform 1100ms var(--nms-ease-out);
-  transition-delay: var(--nms-reveal-delay, 0ms);
-}
-.nms-intro [data-reveal].is-revealed {
-  opacity: 1;
-  transform: none;
+@media (prefers-reduced-motion: reduce) {
+  .nms-bar { animation: none; transform: none; }
 }

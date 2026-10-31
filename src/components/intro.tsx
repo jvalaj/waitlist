@@ -3,50 +3,122 @@
 import { useEffect } from 'react'
 import type { CSSProperties } from 'react'
 
-// Ported from the bapple store intro. Timings match bapple's store.js.
-const TYPE_START = 500 // ms after load, so the nav has mostly landed
-const TYPE_SPEED = 55 // ms per typed letter
-const LETTER_STAGGER = 18 // keep in sync with .nms-letter transition-delay in globals.css
-const REST_AFTER_TITLE = 350 // the last letter is still sharpening when the rest rises
-const REVEAL_STAGGER = 90 // ms between things that scroll in together
-const REVEAL_MAX_STEPS = 6
+/*
+ * The page intro, adapted from the bapple store's "iPhone Duo" title: every piece of text hangs from
+ * its top edge, tipped back and blurred, and swings down into place. Nothing else moves.
+ *
+ * 1. A preloader draws a week of screen time, each day's bar shorter than the last, then lifts.
+ * 2. Text on screen flips in one block at a time, in reading order.
+ * 3. Text further down flips in the same way as it scrolls into view.
+ *
+ * Headings and labels go letter by letter (data-flip="letters"); running text goes word by word
+ * (data-flip="words") so long paragraphs don't take forever. Everything is only hidden under
+ * html.nms-intro (set by an inline script in layout.tsx, skipped for reduced motion).
+ */
 
-/** "Introducing", typed out with a caret. Screen readers get the whole word. */
-export function TypedEyebrow({ text, className = '' }: { text: string; className?: string }) {
+const PRELOADER_MIN = 1400 // ms the chart stays up, so the bars finish drawing
+const PRELOADER_FADE = 600 // keep in sync with .nms-preloader in globals.css
+const LETTER_STEP = 18 // ms between letters, like bapple's title but quicker for longer lines
+const WORD_STEP = 28 // ms between words
+const MAX_SPREAD = 900 // a block never takes longer than this to start its last unit
+const HANDOFF = 150 // the next block starts this long after the current one...
+const HANDOFF_SHARE = 0.5 // ...plus this share of the current block's spread
+const MAX_QUEUE = 900 // never make freshly scrolled-to text wait longer than this
+
+// A week of screen time, trending down. Purely decorative.
+const WEEK = [0.92, 0.78, 0.84, 0.6, 0.48, 0.36, 0.24]
+const DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+
+export function Preloader() {
+  const width = 18
+  const gap = 14
+  const height = 96
+  const chartWidth = WEEK.length * width + (WEEK.length - 1) * gap
   return (
-    <p className={`nms-eyebrow ${className}`} aria-label={text}>
-      {[...text].map((char, i) => (
-        <span key={i} className="nms-char" aria-hidden="true">
-          {char === ' ' ? ' ' : char}
-        </span>
-      ))}
-    </p>
+    <div className="nms-preloader" aria-hidden="true">
+      <svg width={chartWidth} height={height + 26} viewBox={`0 0 ${chartWidth} ${height + 26}`}>
+        <line x1="0" x2={chartWidth} y1={height + 0.5} y2={height + 0.5} stroke="currentColor" strokeOpacity="0.12" />
+        {WEEK.map((value, i) => {
+          const x = i * (width + gap)
+          const h = Math.round(value * (height - 6))
+          return (
+            <g key={i}>
+              <rect
+                className="nms-bar"
+                style={{ '--b': i } as CSSProperties}
+                x={x}
+                y={height - h}
+                width={width}
+                height={h}
+                rx="5"
+                fill={i === WEEK.length - 1 ? '#3772FF' : 'currentColor'}
+              />
+              <text
+                x={x + width / 2}
+                y={height + 20}
+                textAnchor="middle"
+                fontSize="11"
+                fill="currentColor"
+                fillOpacity="0.5"
+                fontFamily="Jost, system-ui, sans-serif"
+              >
+                {DAYS[i]}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
+    </div>
   )
 }
 
-/** A headline whose letters flip down out of a blur, one after another. Lines only break between words. */
-export function FlipTitle({ text, className = '' }: { text: string; className?: string }) {
-  let index = 0
-  const words = text.split(' ')
-  return (
-    <h1 className={`nms-title ${className}`} aria-label={text}>
-      {words.map((word, w) => (
-        <span key={w}>
-          <span className="inline-block whitespace-nowrap" aria-hidden="true">
-            {[...word].map((char, c) => (
-              <span key={c} className="nms-letter" style={{ '--i': index++ } as CSSProperties}>
-                {char}
-              </span>
-            ))}
-          </span>
-          {w < words.length - 1 ? ' ' : null}
-        </span>
-      ))}
-    </h1>
-  )
+// Wraps every word (and, for letters, every character) of an element's text in spans, keeping any
+// inline markup (links, <sup>, <em>) intact. Lines only ever break between words.
+function split(el: HTMLElement): number {
+  const mode = el.dataset.flip === 'words' ? 'words' : 'letters'
+  const label = el.textContent?.replace(/\s+/g, ' ').trim() ?? ''
+  let count = 0
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+  const nodes: Text[] = []
+  while (walker.nextNode()) nodes.push(walker.currentNode as Text)
+
+  for (const node of nodes) {
+    const parts = (node.textContent ?? '').split(/(\s+)/)
+    const fragment = document.createDocumentFragment()
+    for (const part of parts) {
+      if (!part) continue
+      if (/^\s+$/.test(part)) {
+        fragment.append(document.createTextNode(' '))
+        continue
+      }
+      const word = document.createElement('span')
+      word.className = 'nms-word'
+      if (mode === 'words') {
+        word.classList.add('nms-unit')
+        word.style.setProperty('--i', String(count++))
+        word.textContent = part
+      } else {
+        for (const char of part) {
+          const letter = document.createElement('span')
+          letter.className = 'nms-unit'
+          letter.style.setProperty('--i', String(count++))
+          letter.textContent = char
+          word.append(letter)
+        }
+      }
+      fragment.append(word)
+    }
+    node.replaceWith(fragment)
+  }
+
+  // Letter spans can read oddly in some screen readers; headings and links accept a label.
+  if (mode === 'letters' && label) el.setAttribute('aria-label', label)
+  const step = Math.min(mode === 'words' ? WORD_STEP : LETTER_STEP, MAX_SPREAD / Math.max(count - 1, 1))
+  el.style.setProperty('--step', `${step}ms`)
+  el.classList.add('is-split')
+  return Math.max(count - 1, 0) * step
 }
 
-/** Runs the intro one step at a time, then reveals sections as they scroll into view. */
 export function IntroController() {
   useEffect(() => {
     const root = document.documentElement
@@ -54,61 +126,49 @@ export function IntroController() {
     ;(window as unknown as { __nmsIntroRan?: boolean }).__nmsIntroRan = true
 
     const timers: number[] = []
-    const wait = (ms: number) => new Promise<void>(resolve => timers.push(window.setTimeout(resolve, ms)))
+    const later = (ms: number, run: () => void) => timers.push(window.setTimeout(run, ms))
 
-    async function intro() {
-      requestAnimationFrame(() => root.classList.add('nms-nav'))
-      const eyebrow = document.querySelector('.nms-eyebrow')
-      const title = document.querySelector('.nms-title')
-      if (!eyebrow || !title) {
-        root.classList.add('nms-rest')
-        return
-      }
-      const chars = [...eyebrow.querySelectorAll('.nms-char')]
-      const caret = document.createElement('span')
-      caret.className = 'nms-caret'
-      caret.setAttribute('aria-hidden', 'true')
+    // Split everything up front, while it's hidden, and remember how long each block takes.
+    const spread = new Map<Element, number>()
+    document.querySelectorAll<HTMLElement>('[data-flip]').forEach(el => spread.set(el, split(el)))
+    const blocks = [...document.querySelectorAll<HTMLElement>('[data-flip], [data-fade]')]
 
-      await wait(TYPE_START)
-      eyebrow.prepend(caret)
-      for (const char of chars) {
-        char.classList.add('is-typed')
-        char.after(caret)
-        await wait(TYPE_SPEED)
-      }
-      await wait(250)
-      caret.classList.add('is-done')
-      title.classList.add('is-in')
-      const letters = title.querySelectorAll('.nms-letter').length
-      await wait((letters - 1) * LETTER_STAGGER + REST_AFTER_TITLE)
-      root.classList.add('nms-rest')
-      await wait(600)
-      caret.remove()
+    // One block after another, in reading order, across everything that arrives.
+    let nextFree = 0
+    function play(el: Element) {
+      const now = performance.now()
+      const start = Math.max(now, Math.min(nextFree, now + MAX_QUEUE))
+      const gap = el.hasAttribute('data-fade') ? 0 : HANDOFF + (spread.get(el) ?? 0) * HANDOFF_SHARE
+      nextFree = start + gap
+      later(start - now, () => el.classList.add('is-in'))
     }
 
-    intro()
-
-    // Below the hero, things rise in as they scroll into view, one after another, top to bottom.
-    const items = document.querySelectorAll('[data-reveal]')
     const observer = new IntersectionObserver(
       entries => {
         entries
           .filter(entry => entry.isIntersecting)
-          .sort(
-            (a, b) =>
-              a.boundingClientRect.top - b.boundingClientRect.top ||
-              a.boundingClientRect.left - b.boundingClientRect.left
-          )
-          .forEach((entry, order) => {
-            const el = entry.target as HTMLElement
+          .map(entry => entry.target)
+          .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))
+          .forEach(el => {
             observer.unobserve(el)
-            el.style.setProperty('--nms-reveal-delay', `${Math.min(order, REVEAL_MAX_STEPS) * REVEAL_STAGGER}ms`)
-            el.classList.add('is-revealed')
+            play(el)
           })
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.15 }
+      { rootMargin: '0px 0px -8% 0px', threshold: 0 }
     )
-    items.forEach(el => observer.observe(el))
+
+    const begin = () => blocks.forEach(el => observer.observe(el))
+
+    // The preloader stays until the chart has drawn and the font is ready, then lifts.
+    const shown = performance.now()
+    const fontReady = document.fonts?.ready ?? Promise.resolve()
+    fontReady.then(() => {
+      const left = Math.max(0, PRELOADER_MIN - (performance.now() - shown))
+      later(left, () => {
+        root.classList.add('nms-loaded')
+        later(PRELOADER_FADE * 0.5, begin)
+      })
+    })
 
     return () => {
       timers.forEach(clearTimeout)
