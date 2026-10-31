@@ -203,7 +203,7 @@ export default function Home() {
               </a>
             </div>
           </Section>
-          <footer className="grid gap-4 border-t border-ink/10 py-10 text-[14px] leading-relaxed text-ink/65 md:grid-cols-12 md:gap-10">
+          <footer className="grid gap-4 border-t border-ink/10 py-10 text-[14px] leading-relaxed text-ink/80 md:grid-cols-12 md:gap-10">
             <p data-flip="letters" className="md:col-span-4">© 2026 No More Scroll</p>
             <div className="space-y-2 md:col-span-8 lg:col-span-7">
               <p data-flip="words">
