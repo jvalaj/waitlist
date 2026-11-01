@@ -16,7 +16,6 @@ html {
 }
 
 body {
-  overflow-x: clip;
   background: #ffffff;
   color: #080708;
   font-family: 'Jost', system-ui, sans-serif;
@@ -192,7 +191,7 @@ body {
   left: 0;
   z-index: -1;
   width: 100%;
-  height: calc(100svh + 34vh);
+  height: calc(var(--nms-hero-bottom, 100svh) + 140px);
   pointer-events: none;
   background-image: var(--nms-to-white),
     linear-gradient(var(--nms-hero-tint), var(--nms-hero-tint)),
@@ -361,14 +360,24 @@ body {
   transition-delay: calc(var(--k, 0) * 220ms);
 }
 
-/* The phone beside the hero text drifts gently up and down */
-@keyframes nms-float {
-  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-  50% { transform: translateY(-12px) rotate(-1.5deg); }
+
+/* On phones the mockup sits under the hero text and shows its top three quarters, fading out
+   into the next section */
+.nms-phone-peek {
+  display: flex;
+  justify-content: center;
+  height: 440px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
 }
-.nms-float {
-  animation: nms-float 6s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .nms-float { animation: none; transform: rotate(-1.5deg); }
+
+/* On phones the section is very tall, so the big logo would cross most of the text: keep it smaller */
+@media (max-width: 767px) {
+  .nms-logo-bg {
+    top: 40px;
+    height: 360px;
+    transform: translateX(50%);
+    background-color: rgba(91, 76, 200, 0.1);
+  }
 }

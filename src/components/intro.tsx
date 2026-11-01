@@ -238,8 +238,16 @@ export function HeroBackdrop() {
   useEffect(() => {
     const nav = document.querySelector('.nms-navbar')
     const hero = document.getElementById('hero')
+    const bg = document.querySelector<HTMLElement>('.nms-hero-bg')
     if (!nav || !hero) return
     let queued = false
+
+    // The picture ends where the hero ends (plus its fade), whatever the screen height, so the
+    // next section's dark text always lands on white
+    const size = () => bg?.style.setProperty('--nms-hero-bottom', `${hero.offsetTop + hero.offsetHeight}px`)
+    const resized = new ResizeObserver(size)
+    resized.observe(hero)
+    size()
 
     function update() {
       queued = false
@@ -257,6 +265,7 @@ export function HeroBackdrop() {
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
+      resized.disconnect()
     }
   }, [])
 

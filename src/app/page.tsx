@@ -47,13 +47,13 @@ function Section({
   )
 }
 
-function Actions({ onImage = false }: { onImage?: boolean }) {
+function Actions({ onImage = false, className = '' }: { onImage?: boolean; className?: string }) {
   return (
-    <div data-pop className="flex flex-wrap items-center gap-3">
+    <div data-pop className={'flex flex-wrap items-center gap-3 ' + className}>
       <a
         href={BETA_MAIL}
         className={
-          'inline-flex items-center rounded-full px-6 py-3 text-[15px] font-medium transition-opacity hover:opacity-85 ' +
+          'inline-flex items-center rounded-full px-5 py-3 text-[14px] font-medium transition-opacity hover:opacity-85 sm:px-6 sm:text-[15px] ' +
           (onImage
             ? 'bg-white text-ink shadow-[0_10px_30px_rgba(40,20,60,0.25)]'
             : 'bg-ink text-white shadow-[0_10px_24px_rgba(8,7,8,0.12)]')
@@ -66,7 +66,7 @@ function Actions({ onImage = false }: { onImage?: boolean }) {
         target="_blank"
         rel="noopener noreferrer"
         className={
-          'inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-medium ' +
+          'inline-flex items-center gap-2 rounded-full px-5 py-3 text-[14px] font-medium sm:px-6 sm:text-[15px] ' +
           (onImage
             ? 'lg-glass nms-glass-button text-white'
             : 'bg-white text-ink shadow-[0_6px_16px_rgba(8,7,8,0.08)] transition-shadow hover:shadow-[0_10px_24px_rgba(8,7,8,0.12)]')
@@ -81,22 +81,24 @@ function Actions({ onImage = false }: { onImage?: boolean }) {
 
 export default function Home() {
   return (
-    <>
+    // overflow-x: clip here rather than on <body>: on <body> it passes up to the window, which can
+    // still be scrolled sideways. Here it clips the full-bleed layers without breaking the sticky nav.
+    <div className="overflow-x-clip">
       <Preloader />
       <IntroController />
       <HeroBackdrop />
       <header className="nms-navbar is-over-hero sticky top-0 z-40">
         <span className="lg-glass nms-nav-glass" aria-hidden="true" />
-        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 md:h-[72px] md:px-12">
+        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-center px-6 md:h-[72px] md:justify-between md:px-12">
           <a href="#" className="flex items-center gap-2 text-[21px] font-medium leading-none tracking-[-0.015em] md:text-[23px]">
             <span className="nms-mark" aria-hidden="true" />
             No More Scroll
           </a>
-          <nav className="flex items-center gap-8 text-[15px]">
-            <a href="#how" className="nms-nav-link hidden sm:inline">How it works</a>
-            <a href="#research" className="nms-nav-link hidden sm:inline">Research</a>
+          <nav className="hidden items-center gap-8 text-[15px] md:flex">
+            <a href="#how" className="nms-nav-link">How it works</a>
+            <a href="#research" className="nms-nav-link">Research</a>
             <a href="#beta" className="nms-nav-link">Availability</a>
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="nms-nav-link hidden sm:inline">
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="nms-nav-link">
               GitHub
             </a>
           </nav>
@@ -107,30 +109,45 @@ export default function Home() {
         <main>
           <section
             id="hero"
-            className="grid min-h-[calc(100svh-4rem)] items-center gap-12 pb-24 pt-10 text-white md:min-h-[calc(100svh-72px)] md:pb-32 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
+            className="grid items-center gap-12 pt-12 text-center text-white lg:min-h-[calc(100svh-72px)] lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16 lg:pb-32 lg:pt-10 lg:text-left"
           >
             <div>
-            <h1
-              data-flip="letters"
-              className="nms-on-image max-w-[820px] text-[34px] font-light leading-[1.12] tracking-[-0.01em] sm:text-[44px] lg:text-[54px]"
-            >
-              Reduce compulsive scrolling without restricting access.
-            </h1>
-            <p data-flip="words" className="nms-on-image mt-8 max-w-[640px] text-[20px] leading-[1.6] text-white md:text-[22px]">
-              No More Scroll is an iOS application that{' '}
-              <span className="nms-hl" style={{ '--k': 0 } as React.CSSProperties}>interrupts</span> extended sessions in social media and
-              short-video apps with a brief, <span className="nms-hl" style={{ '--k': 1 } as React.CSSProperties}>context-aware check-in</span>.
-              Users remain <span className="nms-hl" style={{ '--k': 2 } as React.CSSProperties}>in control</span> of whether to continue.
-            </p>
-            <div className="mt-10">
-              <Actions onImage />
+              <h1
+                data-flip="letters"
+                className="nms-on-image mx-auto max-w-[820px] text-[32px] font-light leading-[1.12] tracking-[-0.01em] sm:text-[42px] lg:mx-0 lg:text-[54px]"
+              >
+                Reduce compulsive scrolling without restricting access.
+              </h1>
+              {/* A shorter line on phones and tablets */}
+              <p
+                data-flip="words"
+                className="nms-on-image mx-auto mt-5 max-w-[360px] text-[17px] leading-[1.55] text-white sm:max-w-[460px] sm:text-[19px] lg:hidden"
+              >
+                An iOS app that <span className="nms-hl" style={{ '--k': 0 } as React.CSSProperties}>interrupts</span> long
+                scrolling sessions with a quick, <span className="nms-hl" style={{ '--k': 1 } as React.CSSProperties}>context-aware check-in</span>.
+                You stay <span className="nms-hl" style={{ '--k': 2 } as React.CSSProperties}>in control</span>.
+              </p>
+              <p data-flip="words" className="nms-on-image mt-8 hidden max-w-[640px] text-[22px] leading-[1.6] text-white lg:block">
+                No More Scroll is an iOS application that{' '}
+                <span className="nms-hl" style={{ '--k': 0 } as React.CSSProperties}>interrupts</span> extended sessions in social media and
+                short-video apps with a brief, <span className="nms-hl" style={{ '--k': 1 } as React.CSSProperties}>context-aware check-in</span>.
+                Users remain <span className="nms-hl" style={{ '--k': 2 } as React.CSSProperties}>in control</span> of whether to continue.
+              </p>
+              <div className="mt-8 lg:mt-10">
+                <Actions onImage className="justify-center lg:justify-start" />
+              </div>
             </div>
-            </div>
-            {/* The app's Today screen, floating beside the text on large screens */}
+            {/* The app's Today screen: beside the text on large screens */}
             <div data-pop className="hidden lg:block">
               <div>
-                <div className="nms-float">
-                  <PhoneMock width={300} />
+                <PhoneMock width={300} uid="wide" />
+              </div>
+            </div>
+            {/* ...and on phones, under the text, showing its top three quarters */}
+            <div data-pop className="lg:hidden">
+              <div>
+                <div className="nms-phone-peek">
+                  <PhoneMock width={280} uid="narrow" />
                 </div>
               </div>
             </div>
@@ -233,6 +250,6 @@ export default function Home() {
           </footer>
         </div>
       </div>
-    </>
+    </div>
   )
 }

@@ -33,7 +33,7 @@ function Hairline() {
   return <div style={{ height: 0.5, background: INK, opacity: 0.3 }} />
 }
 
-function Dial({ size }: { size: number }) {
+function Dial({ size, uid }: { size: number; uid: string }) {
   const pad = 24 // room for the little day numbers outside the circle
   const box = size + pad * 2
   const c = box / 2
@@ -46,11 +46,11 @@ function Dial({ size }: { size: number }) {
     <div style={{ position: 'relative', width: box, height: box, margin: '0 auto' }}>
       <svg width={box} height={box} viewBox={`0 0 ${box} ${box}`} style={{ position: 'absolute', inset: 0 }}>
         <defs>
-          <filter id="nms-dial-lift" x="-30%" y="-30%" width="160%" height="160%">
+          <filter id={`nms-dial-lift-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
             <feDropShadow dx="0" dy="12" stdDeviation="12" floodColor={INK} floodOpacity="0.18" />
             <feDropShadow dx="0" dy="-6" stdDeviation="5" floodColor="#ffffff" floodOpacity="0.9" />
           </filter>
-          <linearGradient id="nms-dial-bar" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id={`nms-dial-bar-${uid}`} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor={NAVY} />
             <stop offset="0.55" stopColor={ACCENT} />
             <stop offset="1" stopColor={LIGHT} />
@@ -76,7 +76,7 @@ function Dial({ size }: { size: number }) {
           )
         })}
         {/* the raised circle */}
-        <circle cx={c} cy={c} r={r - 13} fill={PAPER} filter="url(#nms-dial-lift)" />
+        <circle cx={c} cy={c} r={r - 13} fill={PAPER} filter={`url(#nms-dial-lift-${uid})`} />
         <circle cx={c} cy={c} r={r - 13.4} fill="none" stroke={INK} strokeOpacity="0.28" strokeWidth="0.75" />
         {/* the bar: a faint full track and the blue part on top */}
         <circle cx={c} cy={c} r={ring} fill="none" stroke={INK} strokeOpacity="0.06" strokeWidth="10" />
@@ -85,7 +85,7 @@ function Dial({ size }: { size: number }) {
           cy={c}
           r={ring}
           fill="none"
-          stroke="url(#nms-dial-bar)"
+          stroke={`url(#nms-dial-bar-${uid})`}
           strokeWidth="10"
           strokeLinecap="round"
           strokeDasharray={`${circumference * progress} ${circumference}`}
@@ -145,7 +145,7 @@ function Dial({ size }: { size: number }) {
   )
 }
 
-function TodayScreen() {
+function TodayScreen({ uid }: { uid: string }) {
   const gradientText = {
     backgroundImage: `linear-gradient(90deg, ${NAVY}, ${ACCENT}, ${LIGHT})`,
     WebkitBackgroundClip: 'text',
@@ -161,6 +161,8 @@ function TodayScreen() {
         background: PAPER,
         color: INK,
         fontFamily: 'Jost, system-ui, sans-serif',
+        textAlign: 'left',
+        textShadow: 'none',
         overflow: 'hidden',
       }}
     >
@@ -199,7 +201,7 @@ function TodayScreen() {
         </div>
         <Hairline />
 
-        <Dial size={262} />
+        <Dial size={262} uid={uid} />
 
         {/* this phase, and the next trophy */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -360,8 +362,11 @@ function TodayScreen() {
   )
 }
 
-/** An iPhone showing the Today screen. `width` is the outer width of the phone in CSS pixels. */
-export function PhoneMock({ width = 300 }: { width?: number }) {
+/**
+ * An iPhone showing the Today screen. `width` is the outer width of the phone in CSS pixels.
+ * `uid` keeps the SVG gradient ids unique when more than one phone is on the page.
+ */
+export function PhoneMock({ width = 300, uid = 'a' }: { width?: number; uid?: string }) {
   const bezel = 11
   const scale = (width - bezel * 2) / 393
   const screenH = 852 * scale
@@ -391,7 +396,7 @@ export function PhoneMock({ width = 300 }: { width?: number }) {
         }}
       >
         <div style={{ transform: `scale(${scale})`, transformOrigin: '0 0' }}>
-          <TodayScreen />
+          <TodayScreen uid={uid} />
         </div>
         {/* Dynamic Island */}
         <div
