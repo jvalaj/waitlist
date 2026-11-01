@@ -360,3 +360,15 @@ body {
   background-size: 100% 2px;
   transition-delay: calc(var(--k, 0) * 220ms);
 }
+
+/* The phone beside the hero text drifts gently up and down */
+@keyframes nms-float {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-12px) rotate(-1.5deg); }
+}
+.nms-float {
+  animation: nms-float 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nms-float { animation: none; transform: rotate(-1.5deg); }
+}

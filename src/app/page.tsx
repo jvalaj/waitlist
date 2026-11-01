@@ -1,5 +1,6 @@
 import { Github } from 'lucide-react'
 import { HeroBackdrop, IntroController, Preloader } from '@/components/intro'
+import { PhoneMock } from '@/components/phone-mock'
 
 const BETA_MAIL = 'mailto:jvalaj@usf.edu?subject=No%20More%20Scroll%20beta'
 const GITHUB_URL = 'https://github.com/jvalaj/nomorescroll'
@@ -106,8 +107,9 @@ export default function Home() {
         <main>
           <section
             id="hero"
-            className="flex min-h-[calc(100svh-4rem)] flex-col justify-center pb-24 pt-10 text-white md:min-h-[calc(100svh-72px)] md:pb-32"
+            className="grid min-h-[calc(100svh-4rem)] items-center gap-12 pb-24 pt-10 text-white md:min-h-[calc(100svh-72px)] md:pb-32 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
           >
+            <div>
             <h1
               data-flip="letters"
               className="nms-on-image max-w-[820px] text-[34px] font-light leading-[1.12] tracking-[-0.01em] sm:text-[44px] lg:text-[54px]"
@@ -122,6 +124,15 @@ export default function Home() {
             </p>
             <div className="mt-10">
               <Actions onImage />
+            </div>
+            </div>
+            {/* The app's Today screen, floating beside the text on large screens */}
+            <div data-pop className="hidden lg:block">
+              <div>
+                <div className="nms-float">
+                  <PhoneMock width={300} />
+                </div>
+              </div>
             </div>
           </section>
 
