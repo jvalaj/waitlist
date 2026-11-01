@@ -183,9 +183,10 @@ body {
 }
 
 /* Landing background: the picture sits behind the first screen and scrolls away with it. Its
-   bottom edge blends into white. A light violet shade right behind the text, plus a soft halo on
+   bottom edge blends into white. An even violet tint over the whole picture, plus a soft halo on
    each letter, keeps white text readable on the bright parts of the picture. */
 .nms-hero-bg {
+  --nms-hero-tint: rgba(34, 20, 72, 0.3);
   position: absolute;
   top: 0;
   left: 0;
@@ -194,7 +195,7 @@ body {
   height: calc(100svh + 34vh);
   pointer-events: none;
   background-image: var(--nms-to-white),
-    radial-gradient(ellipse 74% 32% at 36% 34%, rgba(34, 20, 72, 0.46) 0%, rgba(34, 20, 72, 0.38) 60%, rgba(34, 20, 72, 0) 100%),
+    linear-gradient(var(--nms-hero-tint), var(--nms-hero-tint)),
     url('/images/hero-bg.webp');
   background-size: cover;
   background-position: center;
@@ -203,7 +204,7 @@ body {
 @media (max-width: 640px) {
   .nms-hero-bg {
     background-image: var(--nms-to-white),
-      radial-gradient(ellipse 120% 38% at 40% 36%, rgba(34, 20, 72, 0.54) 0%, rgba(34, 20, 72, 0.44) 60%, rgba(34, 20, 72, 0) 100%),
+      linear-gradient(var(--nms-hero-tint), var(--nms-hero-tint)),
       url('/images/hero-bg.webp');
   }
 }
@@ -269,9 +270,10 @@ body {
 /* Over the picture: smoked glass with white text */
 .nms-navbar.is-over-hero {
   color: #ffffff;
+  text-shadow: 0 1px 2px rgba(34, 20, 72, 0.3), 0 0 14px rgba(34, 20, 72, 0.35);
 }
 .nms-navbar.is-over-hero .nms-nav-glass {
-  --lg-tint: rgba(28, 18, 60, 0.55);
+  --lg-tint: rgba(28, 18, 60, 0.22);
   box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.18);
 }
 .nms-navbar.is-over-hero .nms-nav-link {
@@ -326,4 +328,16 @@ body {
   background-color: rgba(91, 76, 200, 0.14);
   -webkit-mask: url('/images/logo.svg') center / contain no-repeat;
   mask: url('/images/logo.svg') center / contain no-repeat;
+}
+
+/* The logo in the nav: transparent, drawn in the nav's text colour (white over the picture, dark
+   over the page). A bolder copy of the logo so the lines hold up at this size. */
+.nms-mark {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask: url('/images/logo-mark.svg') center / contain no-repeat;
+  mask: url('/images/logo-mark.svg') center / contain no-repeat;
 }
