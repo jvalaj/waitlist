@@ -27,13 +27,16 @@ function Section({
   id,
   title,
   children,
+  logo = false,
 }: {
   id?: string
   title: string
   children: React.ReactNode
+  logo?: boolean
 }) {
   return (
-    <section id={id} className="grid gap-6 border-t border-ink/10 py-16 md:grid-cols-12 md:gap-10 md:py-24">
+    <section id={id} className="relative grid gap-6 border-t border-ink/10 py-16 md:grid-cols-12 md:gap-10 md:py-24">
+      {logo && <span className="nms-logo-bg" aria-hidden="true" />}
       <h2 data-flip="letters" className="text-[28px] font-light leading-tight md:col-span-4 md:text-[34px]">
         {title}
       </h2>
@@ -85,7 +88,7 @@ export default function Home() {
       <header className="nms-navbar is-over-hero sticky top-0 z-40">
         <span className="lg-glass nms-nav-glass" aria-hidden="true" />
         <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 md:h-[72px] md:px-12">
-          <a href="#" className="flex items-center gap-3 text-[18px] font-medium tracking-[-0.005em]">
+          <a href="#" className="flex items-center gap-2 text-[21px] font-medium leading-none tracking-[-0.015em] md:text-[23px]">
             <Image
               src="/images/icon.png"
               alt=""
@@ -129,7 +132,7 @@ export default function Home() {
             </div>
           </section>
 
-          <Section title="Background">
+          <Section title="Background" logo>
             <p data-flip="words">
               Prolonged, passive use of social media and short-video platforms is common among
               college students and has been linked to adverse mental health outcomes. A study of
