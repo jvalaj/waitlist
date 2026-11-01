@@ -304,15 +304,6 @@ body {
   background-position: center;
 }
 
-/* The logo mark, drawn in the nav's text colour (white over the picture, dark over the page) */
-.nms-mark {
-  display: inline-block;
-  width: 26px;
-  height: 26px;
-  background-color: currentColor;
-  -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
-  mask: url('/images/logo-mark.png') center / contain no-repeat;
-}
 
 /* The logo, very large and faint, behind a white section: its centre sits on the right edge of the
    screen so the left half shows, about as tall as the section */
@@ -326,6 +317,6 @@ body {
   transform: translate(50%, -50%);
   pointer-events: none;
   background-color: rgba(91, 76, 200, 0.14);
-  -webkit-mask: url('/images/logo-mark-large.png') center / contain no-repeat;
-  mask: url('/images/logo-mark-large.png') center / contain no-repeat;
+  -webkit-mask: url('/images/logo.svg') center / contain no-repeat;
+  mask: url('/images/logo.svg') center / contain no-repeat;
 }
