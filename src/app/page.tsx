@@ -90,11 +90,12 @@ export default function Home() {
         <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 md:h-[72px] md:px-12">
           <a href="#" className="flex items-center gap-2 text-[21px] font-medium leading-none tracking-[-0.015em] md:text-[23px]">
             <Image
-              src="/images/icon.png"
+              src="/images/icon.svg"
               alt=""
               width={36}
               height={36}
               priority
+              unoptimized
               className="h-9 w-9 shadow-[0_4px_14px_rgba(8,7,8,0.18)] [border-radius:22.5%]"
             />
             No More Scroll
