@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Github } from 'lucide-react'
 import { HeroBackdrop, IntroController, Preloader } from '@/components/intro'
 
@@ -84,8 +85,15 @@ export default function Home() {
       <header className="nms-navbar is-over-hero sticky top-0 z-40">
         <span className="lg-glass nms-nav-glass" aria-hidden="true" />
         <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 md:h-[72px] md:px-12">
-          <a href="#" className="flex items-center gap-2.5 text-[18px] font-medium tracking-[-0.005em]">
-            <span className="nms-mark" aria-hidden="true" />
+          <a href="#" className="flex items-center gap-3 text-[18px] font-medium tracking-[-0.005em]">
+            <Image
+              src="/images/icon.png"
+              alt=""
+              width={36}
+              height={36}
+              priority
+              className="h-9 w-9 shadow-[0_4px_14px_rgba(8,7,8,0.18)] [border-radius:22.5%]"
+            />
             No More Scroll
           </a>
           <nav className="flex items-center gap-8 text-[15px]">

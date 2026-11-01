@@ -25,6 +25,12 @@ const MAX_SPREAD = 900 // a block never takes longer than this to start its last
 const NAV_SLIDE = 700 // ms after the preloader starts lifting before the first text block
 const SETTLE = 450 // after a block's last unit starts, wait this long before the next block
 const SETTLE_TIME = 1150 // a unit's longest transition (transform, 1100ms) plus a little
+// Everything after the first screen plays quicker, so text is there as soon as you reach it
+const QUICK_LETTER_STEP = 8
+const QUICK_WORD_STEP = 10
+const QUICK_MAX_SPREAD = 350
+const QUICK_SETTLE = 90
+const QUICK_SETTLE_TIME = 700 // keep in sync with .is-quick .nms-unit transitions in globals.css
 const BACKLOG_EASE = 4000 // ms of queued text at which handoffs reach their quickest
 const MIN_PACE = 0.3 // quickest handoff, as a share of the normal one
 
@@ -79,6 +85,7 @@ export function Preloader() {
 // inline markup (links, <sup>, <em>) intact. Lines only ever break between words.
 function split(el: HTMLElement): number {
   const mode = el.dataset.flip === 'words' ? 'words' : 'letters'
+  const quick = el.classList.contains('is-quick')
   const clean = (node: Element) => node.textContent?.replace(/\s+/g, ' ').trim() ?? ''
   const label = clean(el)
   // Letter spans can read oddly in some screen readers, so links and headings keep their text as a label
@@ -120,7 +127,9 @@ function split(el: HTMLElement): number {
     node.replaceWith(fragment)
   }
 
-  const step = Math.min(mode === 'words' ? WORD_STEP : LETTER_STEP, MAX_SPREAD / Math.max(count - 1, 1))
+  const step = quick
+    ? Math.min(mode === 'words' ? QUICK_WORD_STEP : QUICK_LETTER_STEP, QUICK_MAX_SPREAD / Math.max(count - 1, 1))
+    : Math.min(mode === 'words' ? WORD_STEP : LETTER_STEP, MAX_SPREAD / Math.max(count - 1, 1))
   el.style.setProperty('--step', `${step}ms`)
   el.classList.add('is-split')
   return Math.max(count - 1, 0) * step
@@ -146,6 +155,9 @@ export function IntroController() {
 
     // Split everything up front, while it's hidden, and remember how long each block takes.
     const spread = new Map<Element, number>()
+    document.querySelectorAll('[data-flip], [data-fade]').forEach(el => {
+      if (!el.closest('#hero')) el.classList.add('is-quick')
+    })
     document.querySelectorAll<HTMLElement>('[data-flip]').forEach(el => spread.set(el, split(el)))
     const blocks = [...document.querySelectorAll<HTMLElement>('[data-flip], [data-fade]')]
 
@@ -156,11 +168,12 @@ export function IntroController() {
       const start = Math.max(now, nextFree)
       // Still one at a time after a fast scroll, just quicker the more is waiting
       const pace = Math.max(MIN_PACE, 1 - (start - now) / BACKLOG_EASE)
-      nextFree = start + ((spread.get(el) ?? 0) + SETTLE) * pace
+      const quick = el.classList.contains('is-quick')
+      nextFree = start + ((spread.get(el) ?? 0) + (quick ? QUICK_SETTLE : SETTLE)) * pace
       later(start - now, () => el.classList.add('is-in'))
       // Once every unit has landed, turn the block back into plain text. Thousands of separate
       // letter and word boxes were most of the paint work while scrolling.
-      later(start - now + (spread.get(el) ?? 0) + SETTLE_TIME, () => unsplit(el))
+      later(start - now + (spread.get(el) ?? 0) + (quick ? QUICK_SETTLE_TIME : SETTLE_TIME), () => unsplit(el))
     }
 
     const observer = new IntersectionObserver(
@@ -174,7 +187,8 @@ export function IntroController() {
             play(el)
           })
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0 }
+      // Start as soon as a block peeks in from the bottom edge
+      { rootMargin: '0px 0px 4% 0px', threshold: 0 }
     )
 
     const begin = () => blocks.forEach(el => observer.observe(el))
