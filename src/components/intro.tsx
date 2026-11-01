@@ -183,7 +183,10 @@ export function IntroController() {
       // Once every unit has landed, turn the block back into plain text. Thousands of separate
       // letter and word boxes were most of the paint work while scrolling.
       if (el.hasAttribute('data-flip')) {
-        later(start - now + (spread.get(el) ?? 0) + (quick ? QUICK_SETTLE_TIME : SETTLE_TIME), () => unsplit(el))
+        // Below the first screen there's a lot of text, so it goes back to plain text for smooth
+        // scrolling. The first screen keeps its spans: re-kerning there would show as a snap.
+        const settled = start - now + (spread.get(el) ?? 0) + (quick ? QUICK_SETTLE_TIME : SETTLE_TIME)
+        later(settled, () => (quick ? unsplit(el) : el.classList.add('is-done')))
       }
     }
 

@@ -108,6 +108,12 @@ body {
   filter: none;
   transform: perspective(700px);
 }
+/* First-screen text stays split once it lands (turning it back into plain text re-kerns the
+   letters, which shows as a small snap); just drop the transform so it costs nothing */
+.nms-intro [data-flip].is-done .nms-unit {
+  transition: none;
+  transform: none;
+}
 
 
 .nms-intro [data-fade] {
@@ -177,8 +183,8 @@ body {
 }
 
 /* Landing background: the picture sits behind the first screen and scrolls away with it. Its
-   bottom edge blends into the white page. A soft violet shade on the left, where the text sits,
-   keeps white text readable on the bright parts of the picture. */
+   bottom edge blends into white. A light violet shade right behind the text, plus a soft halo on
+   each letter, keeps white text readable on the bright parts of the picture. */
 .nms-hero-bg {
   position: absolute;
   top: 0;
@@ -188,6 +194,7 @@ body {
   height: calc(100svh + 34vh);
   pointer-events: none;
   background-image: var(--nms-to-white),
+    radial-gradient(ellipse 74% 32% at 36% 34%, rgba(34, 20, 72, 0.46) 0%, rgba(34, 20, 72, 0.38) 60%, rgba(34, 20, 72, 0) 100%),
     url('/images/hero-bg.webp');
   background-size: cover;
   background-position: center;
@@ -196,13 +203,13 @@ body {
 @media (max-width: 640px) {
   .nms-hero-bg {
     background-image: var(--nms-to-white),
+      radial-gradient(ellipse 120% 38% at 40% 36%, rgba(34, 20, 72, 0.54) 0%, rgba(34, 20, 72, 0.44) 60%, rgba(34, 20, 72, 0) 100%),
       url('/images/hero-bg.webp');
   }
 }
 
 .nms-on-image {
-  /* No shade over the picture, so each letter carries its own soft halo to stay readable */
-  text-shadow: 0 1px 2px rgba(34, 20, 72, 0.35), 0 0 18px rgba(34, 20, 72, 0.45), 0 0 42px rgba(34, 20, 72, 0.3);
+  text-shadow: 0 1px 2px rgba(34, 20, 72, 0.3), 0 0 18px rgba(34, 20, 72, 0.35), 0 0 42px rgba(34, 20, 72, 0.2);
 }
 
 /* Liquid glass, from the bapple project (public/liquid-glass.js does the refraction) */

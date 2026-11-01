@@ -96,7 +96,7 @@ export default function Home() {
               height={36}
               priority
               unoptimized
-              className="h-9 w-9 shadow-[0_4px_14px_rgba(8,7,8,0.18)] [border-radius:22.5%]"
+              className="h-9 w-9 [border-radius:22.5%]"
             />
             No More Scroll
           </a>
