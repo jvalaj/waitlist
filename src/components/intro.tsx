@@ -31,6 +31,8 @@ const QUICK_WORD_STEP = 10
 const QUICK_MAX_SPREAD = 350
 const QUICK_SETTLE = 90
 const QUICK_SETTLE_TIME = 700 // keep in sync with .is-quick .nms-unit transitions in globals.css
+const POP_STAGGER = 110 // ms between buttons popping in
+const POP_STAGGER_QUICK = 70
 const BACKLOG_EASE = 4000 // ms of queued text at which handoffs reach their quickest
 const MIN_PACE = 0.3 // quickest handoff, as a share of the normal one
 
@@ -155,11 +157,18 @@ export function IntroController() {
 
     // Split everything up front, while it's hidden, and remember how long each block takes.
     const spread = new Map<Element, number>()
-    document.querySelectorAll('[data-flip], [data-fade]').forEach(el => {
+    document.querySelectorAll('[data-flip], [data-fade], [data-pop]').forEach(el => {
       if (!el.closest('#hero')) el.classList.add('is-quick')
     })
     document.querySelectorAll<HTMLElement>('[data-flip]').forEach(el => spread.set(el, split(el)))
-    const blocks = [...document.querySelectorAll<HTMLElement>('[data-flip], [data-fade]')]
+    const blocks = [...document.querySelectorAll<HTMLElement>('[data-flip], [data-fade], [data-pop]')]
+    // Buttons pop in one after another; their stagger counts as the block's spread
+    document.querySelectorAll<HTMLElement>('[data-pop]').forEach(el => {
+      const quick = el.classList.contains('is-quick')
+      const stagger = quick ? POP_STAGGER_QUICK : POP_STAGGER
+      ;[...el.children].forEach((child, k) => (child as HTMLElement).style.setProperty('--pop-delay', `${k * stagger}ms`))
+      spread.set(el, (el.children.length - 1) * stagger)
+    })
 
     // One block after another, in reading order, across everything that arrives.
     let nextFree = 0
@@ -173,7 +182,9 @@ export function IntroController() {
       later(start - now, () => el.classList.add('is-in'))
       // Once every unit has landed, turn the block back into plain text. Thousands of separate
       // letter and word boxes were most of the paint work while scrolling.
-      later(start - now + (spread.get(el) ?? 0) + (quick ? QUICK_SETTLE_TIME : SETTLE_TIME), () => unsplit(el))
+      if (el.hasAttribute('data-flip')) {
+        later(start - now + (spread.get(el) ?? 0) + (quick ? QUICK_SETTLE_TIME : SETTLE_TIME), () => unsplit(el))
+      }
     }
 
     const observer = new IntersectionObserver(

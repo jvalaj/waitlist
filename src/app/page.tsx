@@ -46,7 +46,7 @@ function Section({
 
 function Actions({ onImage = false }: { onImage?: boolean }) {
   return (
-    <div data-flip="letters" data-fade className="flex flex-wrap items-center gap-3">
+    <div data-pop className="flex flex-wrap items-center gap-3">
       <a
         href={BETA_MAIL}
         className={
