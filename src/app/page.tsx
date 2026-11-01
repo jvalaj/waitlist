@@ -115,9 +115,10 @@ export default function Home() {
               Reduce compulsive scrolling without restricting access.
             </h1>
             <p data-flip="words" className="nms-on-image mt-8 max-w-[640px] text-[20px] leading-[1.6] text-white md:text-[22px]">
-              No More Scroll is an iOS application that interrupts extended sessions in social media
-              and short-video apps with a brief, context-aware check-in. Users remain in control of
-              whether to continue.
+              No More Scroll is an iOS application that{' '}
+              <span className="nms-hl" style={{ '--k': 0 } as React.CSSProperties}>interrupts</span> extended sessions in social media and
+              short-video apps with a brief, <span className="nms-hl" style={{ '--k': 1 } as React.CSSProperties}>context-aware check-in</span>.
+              Users remain <span className="nms-hl" style={{ '--k': 2 } as React.CSSProperties}>in control</span> of whether to continue.
             </p>
             <div className="mt-10">
               <Actions onImage />

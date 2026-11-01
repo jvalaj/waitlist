@@ -341,3 +341,22 @@ body {
   -webkit-mask: url('/images/logo-mark.svg') center / contain no-repeat;
   mask: url('/images/logo-mark.svg') center / contain no-repeat;
 }
+
+/* Key phrases in the hero paragraph get an underline that draws in, left to right and one after
+   another, once the paragraph has fully landed. A background line rather than text-decoration,
+   so it follows the phrase across a line break. Without the intro it's simply shown. */
+.nms-hl {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+  padding-bottom: 2px;
+}
+.nms-intro .nms-hl {
+  background-size: 0% 2px;
+  transition: background-size 700ms var(--nms-ease-out);
+}
+.nms-intro .is-done .nms-hl {
+  background-size: 100% 2px;
+  transition-delay: calc(var(--k, 0) * 220ms);
+}
