@@ -279,16 +279,6 @@ body {
   opacity: 0.85;
 }
 
-/* Secondary hero button: clear liquid glass over the picture */
-.nms-glass-button {
-  --lg-tint: rgba(255, 255, 255, 0.12);
-  --lg-shadow: 0 10px 30px rgba(40, 20, 60, 0.2);
-  transition: transform 200ms var(--nms-ease);
-}
-.nms-glass-button:hover {
-  --lg-tint: rgba(255, 255, 255, 0.2);
-}
-
 /* The last section (and footer) sit on the second picture, its top edge blending in from white.
    Text here stays dark: the picture is bright enough everywhere for ink text to read. The layer
    is full-bleed even though the section sits in the page's centred column. */

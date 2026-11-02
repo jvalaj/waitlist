@@ -1,9 +1,7 @@
-import { Github } from 'lucide-react'
 import { HeroBackdrop, IntroController, Preloader } from '@/components/intro'
 import { PhoneMock } from '@/components/phone-mock'
 
 const BETA_MAIL = 'mailto:jvalaj@usf.edu?subject=No%20More%20Scroll%20beta'
-const GITHUB_URL = 'https://github.com/jvalaj/nomorescroll'
 
 const steps = [
   {
@@ -61,20 +59,6 @@ function Actions({ onImage = false, className = '' }: { onImage?: boolean; class
       >
         <span>Request beta access</span>
       </a>
-      <a
-        href={GITHUB_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={
-          'inline-flex items-center gap-2 rounded-full px-5 py-3 text-[14px] font-medium sm:px-6 sm:text-[15px] ' +
-          (onImage
-            ? 'lg-glass nms-glass-button text-white'
-            : 'bg-white text-ink shadow-[0_6px_16px_rgba(8,7,8,0.08)] transition-shadow hover:shadow-[0_10px_24px_rgba(8,7,8,0.12)]')
-        }
-      >
-        <Github className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
-        <span>View on GitHub</span>
-      </a>
     </div>
   )
 }
@@ -98,9 +82,6 @@ export default function Home() {
             <a href="#how" className="nms-nav-link">How it works</a>
             <a href="#research" className="nms-nav-link">Research</a>
             <a href="#beta" className="nms-nav-link">Availability</a>
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="nms-nav-link">
-              GitHub
-            </a>
           </nav>
         </div>
       </header>
