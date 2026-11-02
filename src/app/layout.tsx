@@ -30,11 +30,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preload" href="/fonts/Jost.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
         <link rel="preload" href="/images/hero-bg.webp" as="image" type="image/webp" />
-        {/* Hide the intro pieces before first paint. Skipped for reduced motion. If the intro script
+        {/* Hide the intro pieces before first paint. Home page only: no other page has an intro to
+            reveal them (or to let the page scroll). Skipped for reduced motion. If the intro script
             never runs, everything is shown after a few seconds anyway. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var r=document.documentElement;r.classList.add('nms-intro');setTimeout(function(){if(!window.__nmsIntroRan)r.classList.remove('nms-intro')},6000)}catch(e){}})()`,
+            __html: `(function(){try{if(location.pathname!=='/'||matchMedia('(prefers-reduced-motion: reduce)').matches)return;var r=document.documentElement;r.classList.add('nms-intro');setTimeout(function(){if(!window.__nmsIntroRan)r.classList.remove('nms-intro')},6000)}catch(e){}})()`,
           }}
         />
       </head>

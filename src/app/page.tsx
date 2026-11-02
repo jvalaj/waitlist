@@ -236,7 +236,14 @@ export default function Home() {
             </div>
           </Section>
           <footer className="grid gap-4 border-t border-ink/10 py-10 text-[14px] leading-relaxed text-ink/80 md:grid-cols-12 md:gap-10">
-            <p data-flip="letters" className="md:col-span-4">© 2026 No More Scroll</p>
+            <div className="space-y-2 md:col-span-4">
+              <p data-flip="letters">© 2026 No More Scroll</p>
+              <p>
+                <a href="/privacy" data-flip="letters" className="border-b border-ink/25 transition-colors hover:border-ink">
+                  Privacy
+                </a>
+              </p>
+            </div>
             <div className="space-y-2 md:col-span-8 lg:col-span-7">
               <p data-flip="words">
                 1. Braghieri, L., Levy, R., &amp; Makarin, A. (2022). Social media and mental health.{' '}
