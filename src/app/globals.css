@@ -362,6 +362,19 @@ body {
   mask-image: linear-gradient(to bottom, #000 70%, transparent);
 }
 
+/* Feature phones: full device visible, scaled for narrow viewports without sideways scroll */
+.nms-feature-phone {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 280px;
+}
+@media (min-width: 640px) {
+  .nms-feature-phone {
+    max-width: 320px;
+  }
+}
+
 /* On phones the section is very tall, so the big logo would cross most of the text: keep it smaller */
 @media (max-width: 767px) {
   .nms-logo-bg {

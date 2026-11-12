@@ -1,4 +1,4 @@
-import { BatteryFull, ChartLine, Flame, Leaf, Settings, Signal, Sun, Wifi } from 'lucide-react'
+import { BatteryFull, ChartLine, Flame, Leaf, Lock, Settings, Signal, Sun, Wifi } from 'lucide-react'
 
 /*
  * The app's Today screen, rebuilt from TodayView.swift for the landing page: date and streak, the
@@ -362,17 +362,353 @@ function TodayScreen({ uid }: { uid: string }) {
   )
 }
 
-/**
- * An iPhone showing the Today screen. `width` is the outer width of the phone in CSS pixels.
- * `uid` keeps the SVG gradient ids unique when more than one phone is on the page.
+/*
+ * Check-in shield: rebuilt from ShieldConfigurationExtension + PromptLibrary.
+ * Sample: 23 min on Instagram, 2nd check-in, "Enjoying this, or just continuing?"
  */
-export function PhoneMock({ width = 300, uid = 'a' }: { width?: number; uid?: string }) {
+function CheckInScreen() {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        width: 393,
+        height: 852,
+        color: INK,
+        fontFamily: 'Jost, system-ui, sans-serif',
+        textAlign: 'center',
+        overflow: 'hidden',
+        background:
+          'linear-gradient(180deg, rgba(238,239,243,0.92) 0%, rgba(255,255,255,0.78) 40%, rgba(238,239,243,0.95) 100%)',
+      }}
+    >
+      {/* Soft “feed behind the glass” wash */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'radial-gradient(ellipse 80% 50% at 50% 28%, rgba(55,114,255,0.12), transparent 70%), radial-gradient(ellipse 60% 40% at 70% 70%, rgba(91,76,200,0.08), transparent 65%)',
+        }}
+      />
+      <div
+        style={{
+          position: 'relative',
+          height: 54,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '14px 32px 0 44px',
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontSize: 17,
+          fontWeight: 600,
+        }}
+      >
+        <span>9:41</span>
+        <span style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <Signal size={17} strokeWidth={2.5} />
+          <Wifi size={17} strokeWidth={2.5} />
+          <BatteryFull size={24} strokeWidth={1.75} />
+        </span>
+      </div>
+
+      <div
+        style={{
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '72px 36px 0',
+          gap: 18,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/shield-icon.png"
+          alt=""
+          width={88}
+          height={88}
+          style={{
+            width: 88,
+            height: 88,
+            borderRadius: 22,
+            boxShadow: '0 16px 36px rgba(8,7,8,0.18)',
+            objectFit: 'cover',
+          }}
+        />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 300 }}>
+          <div style={{ fontSize: 26, fontWeight: 500, lineHeight: 1.25, letterSpacing: '-0.01em' }}>
+            Enjoying this, or just continuing?
+          </div>
+          <div style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.45, opacity: 0.65 }}>
+            23 min on Instagram · 2nd check-in today
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          left: 28,
+          right: 28,
+          bottom: 56,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+        }}
+      >
+        <div
+          style={{
+            height: 54,
+            borderRadius: 999,
+            background: INK,
+            color: '#fff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 17,
+            fontWeight: 500,
+            boxShadow: '0 10px 24px rgba(8,7,8,0.22)',
+          }}
+        >
+          Just continuing
+        </div>
+        <div style={{ fontSize: 17, fontWeight: 500, padding: '10px 0' }}>I&apos;m enjoying it</div>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 8,
+          left: '50%',
+          width: 134,
+          height: 5,
+          borderRadius: 999,
+          transform: 'translateX(-50%)',
+          background: INK,
+        }}
+      />
+    </div>
+  )
+}
+
+const PHASES = [
+  { title: 'Wake Up', days: 'Days 1–5', state: 'complete' as const },
+  { title: 'Spot Triggers', days: 'Days 6–9', state: 'complete' as const },
+  { title: 'Ride Urges', days: 'Days 10–20', state: 'current' as const },
+  { title: 'Reclaim Time', days: 'Days 21–40', state: 'locked' as const },
+  { title: 'Rebuild Focus', days: 'Days 41–65', state: 'locked' as const },
+  { title: 'Off Reels', days: 'Days 66–90', state: 'locked' as const },
+]
+
+function ProgressScreen() {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        width: 393,
+        height: 852,
+        background: PAPER,
+        color: INK,
+        fontFamily: 'Jost, system-ui, sans-serif',
+        textAlign: 'left',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          height: 54,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '14px 32px 0 44px',
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontSize: 17,
+          fontWeight: 600,
+        }}
+      >
+        <span>9:41</span>
+        <span style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <Signal size={17} strokeWidth={2.5} />
+          <Wifi size={17} strokeWidth={2.5} />
+          <BatteryFull size={24} strokeWidth={1.75} />
+        </span>
+      </div>
+
+      <div style={{ padding: '12px 24px 0' }}>
+        <div style={{ fontSize: 15, color: ACCENT }}>Day 13 of 90</div>
+        <div style={{ fontSize: 32, fontWeight: 300, lineHeight: 1.15, marginTop: 2 }}>Progress</div>
+        <div style={{ fontSize: 16, fontWeight: 300, opacity: 0.6, marginTop: 6, marginBottom: 18 }}>
+          Six phases. Calendar-paced — a hard day never sends you back.
+        </div>
+        <Hairline />
+
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: 4 }}>
+          {PHASES.map((phase, i) => {
+            const locked = phase.state === 'locked'
+            const current = phase.state === 'current'
+            const fade = locked ? Math.max(1 - (i - 2) * 0.15, 0.4) : 1
+            return (
+              <div
+                key={phase.title}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '14px 0',
+                  opacity: fade,
+                  borderBottom: i < PHASES.length - 1 ? '0.5px solid rgba(8,7,8,0.18)' : 'none',
+                }}
+              >
+                <div
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: phase.state === 'complete' ? INK : 'transparent',
+                    border:
+                      phase.state === 'complete'
+                        ? 'none'
+                        : current
+                          ? `1.5px solid ${ACCENT}`
+                          : '1px solid rgba(8,7,8,0.2)',
+                  }}
+                >
+                  {phase.state === 'complete' ? (
+                    <span style={{ color: '#fff', fontSize: 12, fontWeight: 600 }}>✓</span>
+                  ) : current ? (
+                    <span
+                      style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: '50%',
+                        background: ACCENT,
+                      }}
+                    />
+                  ) : (
+                    <Lock size={12} strokeWidth={1.75} style={{ opacity: 0.45 }} />
+                  )}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div
+                    style={{
+                      fontSize: 20,
+                      fontWeight: current ? 400 : 300,
+                      lineHeight: 1.2,
+                      ...(current
+                        ? {
+                            backgroundImage: `linear-gradient(90deg, ${NAVY}, ${ACCENT}, ${LIGHT})`,
+                            WebkitBackgroundClip: 'text',
+                            backgroundClip: 'text',
+                            color: 'transparent',
+                          }
+                        : {}),
+                    }}
+                  >
+                    {phase.title}
+                  </div>
+                  <div style={{ fontSize: 13, opacity: 0.55, marginTop: 2 }}>
+                    {phase.days}
+                    {current ? ' · You\'re here' : phase.state === 'complete' ? ' · Done' : ' · Locked'}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          left: 24,
+          right: 24,
+          bottom: 30,
+          height: 62,
+          borderRadius: 999,
+          background: 'rgba(255,255,255,0.72)',
+          boxShadow: '0 8px 30px rgba(8,7,8,0.12), inset 0 0 0 0.5px rgba(255,255,255,0.9)',
+          backdropFilter: 'blur(12px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+          padding: '0 8px',
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontSize: 10,
+          fontWeight: 500,
+        }}
+      >
+        {[
+          { label: 'Today', Icon: Sun },
+          { label: 'Progress', Icon: ChartLine, active: true },
+          { label: 'Settings', Icon: Settings },
+        ].map(({ label, Icon, active }) => (
+          <div
+            key={label}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2,
+              padding: '6px 22px',
+              borderRadius: 999,
+              color: active ? ACCENT : 'rgba(8,7,8,0.75)',
+              background: active ? 'rgba(8,7,8,0.06)' : 'transparent',
+            }}
+          >
+            <Icon size={22} strokeWidth={1.5} />
+            {label}
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 8,
+          left: '50%',
+          width: 134,
+          height: 5,
+          borderRadius: 999,
+          transform: 'translateX(-50%)',
+          background: INK,
+        }}
+      />
+    </div>
+  )
+}
+
+export type PhoneScreen = 'today' | 'checkin' | 'progress'
+
+const LABELS: Record<PhoneScreen, string> = {
+  today: "The No More Scroll app's Today screen: day 13 of 90, phase Ride Urges, scroll time today",
+  checkin: 'A check-in shield asking whether the session is intentional, with continue or stop choices',
+  progress: 'The Progress screen showing six program phases with Ride Urges as the current phase',
+}
+
+/**
+ * An iPhone frame. `width` is outer width in CSS pixels.
+ * `uid` keeps SVG gradient ids unique when more than one phone is on the page.
+ */
+export function PhoneMock({
+  width = 300,
+  uid = 'a',
+  screen = 'today',
+}: {
+  width?: number
+  uid?: string
+  screen?: PhoneScreen
+}) {
   const bezel = 11
   const scale = (width - bezel * 2) / 393
   const screenH = 852 * scale
   return (
     <div
-      aria-label="The No More Scroll app's Today screen: day 13 of 90, phase Ride Urges, 23 minutes of a 1 hour scroll target used"
+      aria-label={LABELS[screen]}
       role="img"
       style={{
         position: 'relative',
@@ -396,9 +732,10 @@ export function PhoneMock({ width = 300, uid = 'a' }: { width?: number; uid?: st
         }}
       >
         <div style={{ transform: `scale(${scale})`, transformOrigin: '0 0' }}>
-          <TodayScreen uid={uid} />
+          {screen === 'today' && <TodayScreen uid={uid} />}
+          {screen === 'checkin' && <CheckInScreen />}
+          {screen === 'progress' && <ProgressScreen />}
         </div>
-        {/* Dynamic Island */}
         <div
           style={{
             position: 'absolute',

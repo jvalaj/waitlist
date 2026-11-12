@@ -1,7 +1,6 @@
 import { HeroBackdrop, IntroController, Preloader } from '@/components/intro'
-import { PhoneMock } from '@/components/phone-mock'
-
-const BETA_MAIL = 'mailto:jvalaj@usf.edu?subject=No%20More%20Scroll%20beta'
+import { PhoneMock, type PhoneScreen } from '@/components/phone-mock'
+import { WaitlistForm } from '@/components/waitlist-form'
 
 const steps = [
   {
@@ -15,6 +14,32 @@ const steps = [
   {
     title: 'Decision',
     body: 'The user chooses whether to continue or to stop. The application never blocks access permanently, so the decision remains with the user.',
+  },
+]
+
+const features: {
+  title: string
+  body: string
+  screen: PhoneScreen
+  uid: string
+}[] = [
+  {
+    title: 'Today at a glance',
+    body: 'A 90-day dial, streak, and daily scroll target on one screen—so progress is visible without opening another report.',
+    screen: 'today',
+    uid: 'feat-today',
+  },
+  {
+    title: 'Context-aware check-ins',
+    body: 'When a session runs long, a brief shield asks one question fit to the moment. Continue or stop—nothing locks permanently.',
+    screen: 'checkin',
+    uid: 'feat-checkin',
+  },
+  {
+    title: 'Phased progress',
+    body: 'Six calendar-paced phases track the habit reset. Responses stay on-device and feed the study measures without accounts or cloud sync.',
+    screen: 'progress',
+    uid: 'feat-progress',
   },
 ]
 
@@ -45,24 +70,6 @@ function Section({
   )
 }
 
-function Actions({ onImage = false, className = '' }: { onImage?: boolean; className?: string }) {
-  return (
-    <div data-pop className={'flex flex-wrap items-center gap-3 ' + className}>
-      <a
-        href={BETA_MAIL}
-        className={
-          'inline-flex items-center rounded-full px-5 py-3 text-[14px] font-medium transition-opacity hover:opacity-85 sm:px-6 sm:text-[15px] ' +
-          (onImage
-            ? 'bg-white text-ink shadow-[0_10px_30px_rgba(40,20,60,0.25)]'
-            : 'bg-ink text-white shadow-[0_10px_24px_rgba(8,7,8,0.12)]')
-        }
-      >
-        <span>Request beta access</span>
-      </a>
-    </div>
-  )
-}
-
 export default function Home() {
   return (
     // overflow-x: clip here rather than on <body>: on <body> it passes up to the window, which can
@@ -80,8 +87,9 @@ export default function Home() {
           </a>
           <nav className="hidden items-center gap-8 text-[15px] md:flex">
             <a href="#how" className="nms-nav-link">How it works</a>
+            <a href="#features" className="nms-nav-link">Features</a>
             <a href="#research" className="nms-nav-link">Research</a>
-            <a href="#beta" className="nms-nav-link">Availability</a>
+            <a href="#beta" className="nms-nav-link">Waitlist</a>
           </nav>
         </div>
       </header>
@@ -114,21 +122,21 @@ export default function Home() {
                 short-video apps with a brief, <span className="nms-hl" style={{ '--k': 1 } as React.CSSProperties}>context-aware check-in</span>.
                 Users remain <span className="nms-hl" style={{ '--k': 2 } as React.CSSProperties}>in control</span> of whether to continue.
               </p>
-              <div className="mt-8 lg:mt-10">
-                <Actions onImage className="justify-center lg:justify-start" />
+              <div className="mt-8 flex justify-center lg:mt-10 lg:justify-start">
+                <WaitlistForm onImage id="nms-waitlist-hero" />
               </div>
             </div>
             {/* The app's Today screen: beside the text on large screens */}
             <div data-pop className="hidden lg:block">
               <div>
-                <PhoneMock width={300} uid="wide" />
+                <PhoneMock width={300} uid="wide" screen="today" />
               </div>
             </div>
             {/* ...and on phones, under the text, showing its top three quarters */}
             <div data-pop className="lg:hidden">
               <div>
                 <div className="nms-phone-peek">
-                  <PhoneMock width={280} uid="narrow" />
+                  <PhoneMock width={280} uid="narrow" screen="today" />
                 </div>
               </div>
             </div>
@@ -137,7 +145,7 @@ export default function Home() {
           <Section title="Background" logo>
             <p data-flip="words">
               Prolonged, passive use of social media and short-video platforms is common among
-              college students and has been linked to adverse mental health outcomes. A study of
+              young adults and has been linked to adverse mental health outcomes. A study of
               Facebook&apos;s staggered introduction at 775 U.S. colleges found that its arrival
               increased severe depression by 7% and anxiety disorders by 20%.
               <sup className="ml-0.5 text-[12px]">1</sup>
@@ -180,39 +188,90 @@ export default function Home() {
             </p>
           </section>
 
+          <section id="features" className="border-t border-ink/10 py-16 md:py-24">
+            <h2 data-flip="letters" className="text-[28px] font-light leading-tight md:text-[34px]">
+              Features
+            </h2>
+            <p data-flip="words" className="mt-4 max-w-[640px] text-[18px] leading-[1.7] text-ink/85 md:text-[19px]">
+              The intervention surfaces as ordinary app screens—not lectures or lockouts.
+            </p>
+            <div className="mt-12 space-y-16 md:mt-16 md:space-y-24">
+              {features.map((f, i) => {
+                const reverse = i % 2 === 1
+                return (
+                  <div
+                    key={f.title}
+                    className="grid items-center gap-10 md:grid-cols-12 md:gap-12"
+                  >
+                    <div
+                      className={
+                        'md:col-span-5 lg:col-span-5 ' + (reverse ? 'md:order-2' : '')
+                      }
+                    >
+                      <h3 data-flip="letters" className="text-[24px] font-medium leading-snug md:text-[28px]">
+                        {f.title}
+                      </h3>
+                      <p data-flip="words" className="mt-4 text-[18px] leading-[1.7] text-ink/85 md:text-[19px]">
+                        {f.body}
+                      </p>
+                    </div>
+                    <div
+                      data-pop
+                      className={
+                        'flex justify-center md:col-span-7 lg:col-span-7 ' +
+                        (reverse ? 'md:order-1 md:justify-start' : 'md:justify-end')
+                      }
+                    >
+                      <div className="nms-feature-phone">
+                        <div className="hidden sm:block">
+                          <PhoneMock width={268} uid={f.uid} screen={f.screen} />
+                        </div>
+                        <div className="sm:hidden">
+                          <PhoneMock width={232} uid={`${f.uid}-m`} screen={f.screen} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+
           <Section id="research" title="Research">
             <p data-flip="words">
-              No More Scroll is the basis of a research project in human-computer interaction by
-              Jvalaj Pandey, a computer science student at the University of South Florida. The
-              central question is whether an intervention can change behavior without becoming so
-              frustrating that users disable it.
+              No More Scroll is the instrument for a human–computer interaction study on digital
+              self-control. The central question is whether a brief, non-restrictive intervention can
+              change scrolling behavior without becoming so frustrating that people disable it.
             </p>
             <p data-flip="words">
-              A proposed randomized field study with college students would compare three
-              conditions: check-ins timed to context, such as late at night or deep into a long
-              session; check-ins at a fixed interval; and no intervention. Outcomes would include app
-              use, check-in responses and whether participants keep the intervention enabled, with
-              daily mood as a secondary measure. A follow-up period would assess whether any changes
-              persist.
+              A proposed randomized field study would compare three conditions: check-ins timed to
+              context, such as late at night or deep into a long session; check-ins at a fixed
+              interval; and no intervention. Primary outcomes include app use, check-in responses, and
+              whether participants keep the intervention enabled, with daily mood as a secondary
+              measure. A follow-up period would assess whether any changes persist.
+            </p>
+            <p data-flip="words">
+              The waitlist below is for early access to the private beta and for people interested in
+              participating when recruitment opens.
             </p>
           </Section>
 
         </main>
 
         <div className="nms-end pt-[28vh]">
-          <Section id="beta" title="Availability">
+          <Section id="beta" title="Waitlist">
             <p data-flip="words">
-              No More Scroll is currently in private beta and will be released on iOS soon. For beta
-              access or research inquiries, please get in touch.
+              No More Scroll is in private beta on iOS. Join the waitlist for an invite when a spot
+              opens, or reach out about the research study.
             </p>
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-3">
-              <Actions />
+            <div className="space-y-5 pt-3">
+              <WaitlistForm id="nms-waitlist-footer" />
               <a
-                href="mailto:jvalaj@usf.edu"
+                href="mailto:hello@nomorescroll.app"
                 data-flip="letters"
-                className="border-b border-ink/25 pb-1 text-[16px] transition-colors hover:border-ink"
+                className="inline-block border-b border-ink/25 pb-1 text-[16px] transition-colors hover:border-ink"
               >
-                Contact
+                Research inquiries
               </a>
             </div>
           </Section>

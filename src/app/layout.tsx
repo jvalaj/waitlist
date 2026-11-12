@@ -3,9 +3,10 @@ import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nomorescroll.app'),
   title: 'No More Scroll',
   description:
-    "An iPhone app that taps you on the shoulder when you've been scrolling on autopilot, and a research project on check-ins people don't turn off. In beta, launching soon.",
+    'An iOS research app that interrupts compulsive scrolling with brief, context-aware check-ins—without permanent locks. Private beta; study waitlist open.',
   icons: {
     icon: [
       { url: '/images/icon.svg', type: 'image/svg+xml' },
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'No More Scroll',
     description: "An iPhone app that taps you on the shoulder when you've been scrolling on autopilot.",
+    url: 'https://nomorescroll.app',
+    siteName: 'No More Scroll',
     images: ['/images/icon.png'],
   },
 }

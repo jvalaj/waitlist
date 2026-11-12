@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 
-const CONTACT = 'jvalaj@usf.edu'
+const CONTACT = 'hello@nomorescroll.app'
 
 export const metadata: Metadata = {
   title: 'Privacy · No More Scroll',
@@ -40,6 +40,10 @@ const sections: { title: string; body: React.ReactNode }[] = [
   {
     title: 'If you email us',
     body: 'When you send feedback, we get your email address and your message, and use them only to reply.',
+  },
+  {
+    title: 'Waitlist',
+    body: 'If you join the website waitlist, we store the email address you enter so we can invite you to the beta. We use it only for that, and you can ask us to remove it anytime.',
   },
   {
     title: 'Children',

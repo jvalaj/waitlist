@@ -38,9 +38,14 @@ Thumbs.db
 # Package archives
 *.tgz
 
+# Waitlist local fallback
+submissions.csv
+
 # Misc
 *.env
 
 # Ignore local macOS Spotlight files
 .AppleDouble
 .LSOverride
+.vercel
+.env*.local
