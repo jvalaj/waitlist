@@ -267,7 +267,7 @@ export default function Home() {
             <div className="space-y-5 pt-3">
               <WaitlistForm id="nms-waitlist-footer" />
               <a
-                href="mailto:hello@nomorescroll.app"
+                href="mailto:nomorescrollapp@gmail.com"
                 data-flip="letters"
                 className="inline-block border-b border-ink/25 pb-1 text-[16px] transition-colors hover:border-ink"
               >

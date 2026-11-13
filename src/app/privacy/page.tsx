@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 
-const CONTACT = 'hello@nomorescroll.app'
+const CONTACT = 'nomorescrollapp@gmail.com'
 
 export const metadata: Metadata = {
   title: 'Privacy · No More Scroll',
