@@ -30,10 +30,6 @@ const sections: { title: string; body: React.ReactNode }[] = [
     body: "The apps you pick and the time you spend in them come from Apple's Screen Time. Apple only gives the app anonymous tokens for your apps, and shows your minutes in a view Apple draws itself. That data never leaves your phone, and we can't read it.",
   },
   {
-    title: 'Purchases',
-    body: 'Subscriptions are handled by Apple. We never see your payment details; Apple only tells the app whether your subscription is active.',
-  },
-  {
     title: 'Notifications',
     body: 'Reminders and the breath notification are scheduled on your phone. No server sends them.',
   },
@@ -81,7 +77,7 @@ export default function Privacy() {
           <div className="relative pb-12 pt-14 md:pb-16 md:pt-20">
             <span className="nms-logo-bg" aria-hidden="true" />
             <p className="text-[15px] text-ink/60">
-              Updated <time dateTime="2026-11-02">November 2, 2026</time>
+              Updated <time dateTime="2026-11-13">November 13, 2026</time>
             </p>
             <h1 className="mt-2 text-[44px] font-light leading-[1.1] tracking-[-0.01em] md:text-[54px]">Privacy</h1>
           </div>
